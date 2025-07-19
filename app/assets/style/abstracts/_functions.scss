@@ -1,0 +1,15 @@
+$default-spacing: 0.5rem;
+
+@function spacing($value) {
+  @return $default-spacing * $value;
+}
+
+@function rem($px, $base: 16) {
+  @return ($px / $base) * 1rem;
+}
+
+// font-size() – responsive scaling
+@function font-size($min, $max) {
+  @return clamp(#{$min}rem, 1vw + 1rem, #{$max}rem);
+}
+// usage: font-size: font-size(1, 2);
