@@ -52,8 +52,10 @@ Add to .env:
 SUPABASE_URL= https://your-project.supabase.co
 SUPABASE_ANON_KEY= your-anon-key
 ⚠️ Make sure RLS is enabled and policies are configured in Supabase
+```
 
 Go to SQL Editor:
+```
 create table books (
   id          uuid primary key default uuid_generate_v4(),
   user_id     uuid references auth.users(id),
