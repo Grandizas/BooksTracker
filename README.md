@@ -14,7 +14,7 @@ A fun, personal web app to track your reading progress — built with **Nuxt 3**
 
 - [Nuxt 3](https://nuxt.com/)
 - [Supabase](https://supabase.com/) (PostgreSQL, Auth, Storage)
-- [Tailwind CSS](https://tailwindcss.com/)
+- SCSS
 - TypeScript
 
 ---
@@ -73,7 +73,7 @@ create policy "Users can CRUD own books"
   for all
   using (auth.uid() = user_id)
   with check (auth.uid() = user_id);
-
+```
 
 Create storage -> covers
 
