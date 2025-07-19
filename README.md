@@ -38,16 +38,17 @@ A fun, personal web app to track your reading progress — built with **Nuxt 3**
 # Clone the repo
 git clone https://github.com/your-username/reading-tracker.git
 cd reading-tracker
-
+```
 # Install dependencies
-npm install
+`npm install`
 
 # Create .env file
-cp .env.example .env
+`cp .env.example .env`
 
 
 
 Add to .env:
+```
 SUPABASE_URL= https://your-project.supabase.co
 SUPABASE_ANON_KEY= your-anon-key
 ⚠️ Make sure RLS is enabled and policies are configured in Supabase
