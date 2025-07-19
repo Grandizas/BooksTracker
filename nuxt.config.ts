@@ -13,16 +13,4 @@ export default defineNuxtConfig({
     "@/assets/style/base/_typography.scss",
     "@/assets/style/base/_normalize.scss",
   ],
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `
-            @use "@/assets/style/abstracts/variables" as *;
-            @use "@/assets/style/abstracts/functions" as *;
-          `,
-        },
-      },
-    },
-  },
 });
