@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the main content of the home page.</p>
+    <h1>{{ $t('home.title') }}</h1>
+    <p>{{ $t('home.content') }}</p>
   </div>
 </template>
