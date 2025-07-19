@@ -55,7 +55,7 @@ SUPABASE_ANON_KEY= your-anon-key
 ```
 
 Go to SQL Editor:
-```
+```sql
 create table books (
   id          uuid primary key default uuid_generate_v4(),
   user_id     uuid references auth.users(id),
