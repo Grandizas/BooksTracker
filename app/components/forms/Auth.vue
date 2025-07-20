@@ -30,7 +30,7 @@ defineProps<{
   footer: {
     buttonText: string;
     redirectQuestion: string;
-    redirectLink: { text: string; to: '/login' | '/register' };
+    redirectLink: { text: string; to: '/auth/login' | '/auth/register' };
   };
 }>();
 

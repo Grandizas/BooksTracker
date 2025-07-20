@@ -55,6 +55,7 @@ const { login } = useAuth();
 
 definePageMeta({
   layout: 'auth',
+  middleware: 'guest',
 });
 
 const state = reactive({
@@ -68,7 +69,7 @@ const footer = computed(() => {
   return {
     buttonText: t('auth.signIn'),
     redirectQuestion: t('login.noAccount'),
-    redirectLink: { text: t('auth.signUp'), to: '/register' as const },
+    redirectLink: { text: t('auth.signUp'), to: '/auth/register' as const },
   };
 });
 
