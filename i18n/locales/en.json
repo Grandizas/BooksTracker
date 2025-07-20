@@ -9,5 +9,23 @@
     "wishlist": "Wishlist",
     "completed": "Completed",
     "add": "Add Book"
+  },
+  "auth": {
+    "email": "Email",
+    "enterEmail": "Enter your email address",
+    "password": "Password",
+    "enterPassword": "Enter your password",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "invalidEmail": "Invalid email address",
+    "passwordShort": "Password must be at least 6 characters long"
+  },
+  "login": {
+    "welcome": "Welcome back!",
+    "title": "Sign in to your account",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "invalidCredentials": "Invalid login credentials"
   }
 }
