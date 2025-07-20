@@ -9,5 +9,19 @@
     "wishlist": "Norų sąrašas",
     "completed": "Perskaitytos",
     "add": "Pridėti knygą"
+  },
+  "auth": {
+    "email": "El. paštas",
+    "enterEmail": "Įveskite el. paštą",
+    "password": "Slaptažodis",
+    "enterPassword": "Įveskite slaptažodį",
+    "signUp": "Registruotis",
+    "signIn": "Prisijungti"
+  },
+  "login": {
+    "welcome": "Sveiki sugrįžę!",
+    "title": "Prisijungti prie savo paskyros",
+    "forgotPassword": "Pamiršote slaptažodį?",
+    "noAccount": "Neturite paskyros?"
   }
 }

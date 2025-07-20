@@ -30,6 +30,12 @@ $radius-lg: 16px;
 $radius-xl: 24px;
 
 // ------------------------------
+// Box Shadows
+// ------------------------------
+$box-shadow-button: rgba(0, 0, 0, 0.1) 0 0 0 1px;
+$box-shadow-box: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+// ------------------------------
 // Z-index
 // ------------------------------
 $z-index-dropdown: 1000;
