@@ -77,20 +77,13 @@ function resetErrors() {
 }
 
 async function handleLogin() {
-  console.log('Email', state.email);
-  console.log('Password', state.password);
-
   const result = await login({
     email: state.email,
     password: state.password,
   });
   state.errors = result.errors || {};
 
-  console.log('state.errors', state.errors);
-  console.log('Result', result);
-
   if (result.success) {
-    console.log('Login successful:', result);
     // Do redirect or show success toast
   }
 }

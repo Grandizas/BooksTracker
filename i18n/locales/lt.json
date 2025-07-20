@@ -17,6 +17,7 @@
     "enterPassword": "Įveskite slaptažodį",
     "signUp": "Registruotis",
     "signIn": "Prisijungti",
+    "signOut": "Atsijungti",
     "invalidEmail": "Neteisingas el. pašto adresas",
     "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
   },
