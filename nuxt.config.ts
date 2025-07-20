@@ -1,11 +1,11 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@nuxt/eslint", "@nuxtjs/i18n"],
+  modules: ["@nuxt/eslint", "@nuxtjs/i18n", "@nuxtjs/supabase"],
   runtimeConfig: {
     public: {
       supabaseUrl: process.env.SUPABASE_URL,
-      supabaseKey: process.env.SUPABASE_ANON_KEY,
+      supabaseKey: process.env.SUPABASE_KEY,
     },
   },
   css: [
@@ -15,14 +15,10 @@ export default defineNuxtConfig({
   ],
   i18n: {
     locales: [
-      { code: "en", name: "English", file: "en.json" },
-      { code: "lt", name: "Lithuanian", file: "lt.json" },
+      { code: "en", iso: "en-US", name: "English", file: "en.json" },
+      { code: "lt", iso: "lt-LT", name: "Lietuvių", file: "lt.json" },
     ],
     defaultLocale: "en",
-    lazy: true,
     langDir: "locales/",
-    vueI18n: {
-      fallbackLocale: "en",
-    },
   },
 });

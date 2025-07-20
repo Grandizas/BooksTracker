@@ -1,0 +1,13 @@
+{
+  "home": {
+    "title": "Sveiki atvykę į pagrindinį puslapį",
+    "content": "Tai yra pagrindinio puslapio turinys."
+  },
+  "navigation": {
+    "home": "Pagrindinis",
+    "books": "Mano knygos",
+    "wishlist": "Norų sąrašas",
+    "completed": "Perskaitytos",
+    "add": "Pridėti knygą"
+  }
+}

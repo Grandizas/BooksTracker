@@ -1,0 +1,31 @@
+@use '../../abstracts/colors' as *;
+@use '../../abstracts/variables' as *;
+@use '../../abstracts/functions' as *;
+@use '../../abstracts/placeholders' as *;
+
+.nav-link {
+  @extend %flex;
+  cursor: pointer;
+  gap: $spacing-xxs;
+  padding: spacing(1);
+  color: $color-black;
+  text-decoration: none;
+  font-size: $font-size-xs;
+  border-radius: $radius-md;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px;
+  transition: background-color 100ms ease-in-out;
+
+  &:hover {
+    background-color: $color-gray-light;
+  }
+
+  &.active {
+    color: $color-white;
+    background-color: $color-black;
+  }
+
+  svg {
+    width: rem(14);
+    height: rem(14);
+  }
+}

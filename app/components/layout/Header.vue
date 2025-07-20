@@ -3,16 +3,12 @@
     <div class="header__left">
       <ui-logo-text />
     </div>
-    <div class="header__center">Navigation</div>
+    <layout-navigation class="header__center" />
     <div class="header__right">
-      <LanguageSwitcher />
+      <ui-language-switcher />
     </div>
   </header>
 </template>
-
-<script setup lang="ts">
-import LanguageSwitcher from "@/components/ui/LanguageSwitcher.vue";
-</script>
 
 <style scoped lang="scss">
 @use "@/assets/style/layout/_header.scss";

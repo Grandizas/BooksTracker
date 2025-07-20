@@ -1,0 +1,13 @@
+{
+  "home": {
+    "title": "Welcome to the Home Page",
+    "content": "This is the main content of the home page."
+  },
+  "navigation": {
+    "home": "Home",
+    "books": "My Books",
+    "wishlist": "Wishlist",
+    "completed": "Completed",
+    "add": "Add Book"
+  }
+}
