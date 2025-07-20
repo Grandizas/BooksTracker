@@ -68,7 +68,7 @@ const footer = computed(() => {
   return {
     buttonText: t('auth.signIn'),
     redirectQuestion: t('login.noAccount'),
-    redirectLink: { text: t('auth.signUp'), to: '/login' as const },
+    redirectLink: { text: t('auth.signUp'), to: '/register' as const },
   };
 });
 
