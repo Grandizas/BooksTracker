@@ -16,12 +16,15 @@
     "password": "Slaptažodis",
     "enterPassword": "Įveskite slaptažodį",
     "signUp": "Registruotis",
-    "signIn": "Prisijungti"
+    "signIn": "Prisijungti",
+    "invalidEmail": "Neteisingas el. pašto adresas",
+    "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
   },
   "login": {
     "welcome": "Sveiki sugrįžę!",
     "title": "Prisijungti prie savo paskyros",
     "forgotPassword": "Pamiršote slaptažodį?",
-    "noAccount": "Neturite paskyros?"
+    "noAccount": "Neturite paskyros?",
+    "invalidCredentials": "Neteisingi prisijungimo duomenys"
   }
 }

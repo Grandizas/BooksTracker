@@ -7,7 +7,8 @@
       :type="type"
       :placeholder="placeholder"
       :disabled="disabled"
-      @input="emit('input', state.value)"
+      @input="emit('update:modelValue', state.value)"
+      @focus="emit('focus', $event)"
     />
 
     <div v-show="rightButtons || state.value" class="input-wrapper__buttons">
@@ -18,7 +19,7 @@
         @click="
           () => {
             state.value = '';
-            emit('input', '');
+            emit('update:modelValue', '');
           }
         "
       >
@@ -55,7 +56,8 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: 'input', value: string): void;
+  (e: 'update:modelValue', value: string): void;
+  (e: 'focus', event: FocusEvent): void;
 }>();
 
 const state = reactive({

@@ -10,6 +10,10 @@ $input-height: rem(35);
   position: relative;
   flex-direction: column;
 
+  &:not(:first-child) {
+    margin-top: spacing(2);
+  }
+
   label {
     font-weight: 500;
     font-size: $font-size-xs;

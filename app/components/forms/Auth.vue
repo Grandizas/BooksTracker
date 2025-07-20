@@ -34,9 +34,9 @@ defineProps<{
   };
 }>();
 
-const emit = defineEmits({
-  submit: () => true,
-});
+const emit = defineEmits<{
+  (e: 'submit'): void;
+}>();
 </script>
 
 <style scoped lang="scss">
