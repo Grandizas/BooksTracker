@@ -77,8 +77,7 @@ function resetErrors() {
 }
 
 async function handleLogin() {
-  console.log('Email', state.email);
-  console.log('Password', state.password);
+  // Removed sensitive console logs for email and password.
 
   const result = await login({
     email: state.email,
