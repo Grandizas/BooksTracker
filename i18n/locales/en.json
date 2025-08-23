@@ -12,6 +12,7 @@
   },
   "auth": {
     "email": "Email",
+    "signUp": "Sign Up",
     "enterEmail": "Enter your email address",
     "password": "Password",
     "enterPassword": "Enter your password",
@@ -21,7 +22,6 @@
     "passwordShort": "Password must be at least 6 characters long"
   },
   "login": {
-    "signUp": "Sign Up",
     "welcome": "Welcome back!",
     "title": "Sign in to your account",
     "forgotPassword": "Forgot your password?",

@@ -12,6 +12,7 @@
   },
   "auth": {
     "email": "El. paštas",
+    "signUp": "Registruotis",
     "enterEmail": "Įveskite el. paštą",
     "password": "Slaptažodis",
     "enterPassword": "Įveskite slaptažodį",
@@ -21,7 +22,6 @@
     "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
   },
   "login": {
-    "signUp": "Registruotis",
     "welcome": "Sveiki sugrįžę!",
     "title": "Prisijungti prie savo paskyros",
     "forgotPassword": "Pamiršote slaptažodį?",
@@ -37,5 +37,8 @@
     "alreadyHaveAccount": "Jau turite paskyrą?",
     "createAccount": "Sukurti paskyrą",
     "startTracking": "Sukurkite paskyrą, kad pradėtumėte sekti knygas"
+  },
+  "common": {
+    "loading": "Kraunama..."
   }
 }

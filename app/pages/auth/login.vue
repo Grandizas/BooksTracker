@@ -72,7 +72,7 @@ const state = reactive({
 const footer = computed(() => ({
   buttonText: state.loading ? t('common.loading') : t('auth.signIn'),
   redirectQuestion: t('login.noAccount'),
-  redirectLink: { text: t('login.signUp'), to: '/auth/register' as const },
+  redirectLink: { text: t('auth.signUp'), to: '/auth/register' as const },
 }));
 
 function resetErrors() {
