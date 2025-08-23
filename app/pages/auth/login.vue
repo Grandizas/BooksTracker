@@ -1,6 +1,11 @@
 <template>
   <div class="login-page">
-    <forms-auth :footer="footer" @submit="handleLogin()">
+    <forms-auth
+      :header-note="`${t('login.welcome')} ${t('login.title')}`"
+      :footer="footer"
+      :loading="state.loading"
+      @submit="handleLogin()"
+    >
       <!-- ------------------------
              [ Email Input ]
       ------------------------- -->
@@ -49,42 +54,47 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { useAuth } from '~/composables/useAuth';
 
 const { t } = useI18n();
 const { login } = useAuth();
 
-definePageMeta({
-  layout: 'auth',
-});
+definePageMeta({ layout: 'auth', middleware: 'guest' });
 
 const state = reactive({
   email: '',
   password: '',
   passwordShow: false,
+  loading: false,
   errors: {} as Partial<Record<string, string[]>>,
 });
 
-const footer = computed(() => {
-  return {
-    buttonText: t('auth.signIn'),
-    redirectQuestion: t('login.noAccount'),
-    redirectLink: { text: t('auth.signUp'), to: '/register' as const },
-  };
-});
+const footer = computed(() => ({
+  buttonText: state.loading ? t('common.loading') : t('auth.signIn'),
+  redirectQuestion: t('login.noAccount'),
+  redirectLink: { text: t('auth.signUp'), to: '/auth/register' as const },
+}));
 
 function resetErrors() {
   state.errors = {};
 }
 
 async function handleLogin() {
-  const result = await login({
-    email: state.email,
-    password: state.password,
-  });
-  state.errors = result.errors || {};
+  resetErrors();
+  state.loading = true;
+  try {
+    const result = await login({
+      email: state.email,
+      password: state.password,
+    });
 
-  if (result.success) {
-    // Do redirect or show success toast
+    state.errors = result.errors || {};
+
+    if (result.success) {
+      await navigateTo('/');
+    }
+  } finally {
+    state.loading = false;
   }
 }
 </script>

@@ -12,10 +12,10 @@
   },
   "auth": {
     "email": "El. paštas",
+    "signUp": "Registruotis",
     "enterEmail": "Įveskite el. paštą",
     "password": "Slaptažodis",
     "enterPassword": "Įveskite slaptažodį",
-    "signUp": "Registruotis",
     "signIn": "Prisijungti",
     "signOut": "Atsijungti",
     "invalidEmail": "Neteisingas el. pašto adresas",
@@ -27,5 +27,17 @@
     "forgotPassword": "Pamiršote slaptažodį?",
     "noAccount": "Neturite paskyros?",
     "invalidCredentials": "Neteisingi prisijungimo duomenys"
+  },
+  "register": {
+    "confirmPassword": "Patvirtinti slaptažodį",
+    "confirmYourPassword": "Patvirtinkite savo slaptažodį",
+    "fullName": "Pilnas vardas",
+    "enterFullName": "Įveskite savo pilną vardą",
+    "alreadyHaveAccount": "Jau turite paskyrą?",
+    "createAccount": "Sukurti paskyrą",
+    "startTracking": "Sukurkite paskyrą, kad pradėtumėte sekti knygas"
+  },
+  "common": {
+    "loading": "Kraunama..."
   }
 }

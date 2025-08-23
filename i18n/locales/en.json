@@ -12,10 +12,10 @@
   },
   "auth": {
     "email": "Email",
+    "signUp": "Sign Up",
     "enterEmail": "Enter your email address",
     "password": "Password",
     "enterPassword": "Enter your password",
-    "signUp": "Sign Up",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "invalidEmail": "Invalid email address",
@@ -27,5 +27,17 @@
     "forgotPassword": "Forgot your password?",
     "noAccount": "Don't have an account?",
     "invalidCredentials": "Invalid login credentials"
+  },
+  "register": {
+    "confirmPassword": "Confirm Password",
+    "confirmYourPassword": "Confirm your password",
+    "fullName": "Full Name",
+    "enterFullName": "Enter your full name",
+    "alreadyHaveAccount": "Already have an account?",
+    "createAccount": "Create an account",
+    "startTracking": "Create your account to start tracking books"
+  },
+  "common": {
+    "loading": "Loading..."
   }
 }
