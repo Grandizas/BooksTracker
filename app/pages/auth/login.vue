@@ -82,13 +82,19 @@ function resetErrors() {
 async function handleLogin() {
   resetErrors();
   state.loading = true;
-  const result = await login({ email: state.email, password: state.password });
-  state.loading = false;
+  try {
+    const result = await login({
+      email: state.email,
+      password: state.password,
+    });
 
-  state.errors = result.errors || {};
+    state.errors = result.errors || {};
 
-  if (result.success) {
-    await navigateTo('/'); // change to your app's home
+    if (result.success) {
+      await navigateTo('/');
+    }
+  } finally {
+    state.loading = false;
   }
 }
 </script>

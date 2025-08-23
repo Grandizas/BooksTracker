@@ -9,11 +9,11 @@
   font-size: $font-size-sm;
   border-radius: $radius-md;
 
-  &:not(.disabled) {
+  &:not(.disabled):not(:disabled):not([aria-disabled='true']):hover {
     cursor: pointer;
   }
 
-  .disabled {
+  .disabled, &:disabled, &[aria-disabled='true'] {
     opacity: 0.5;
   }
 

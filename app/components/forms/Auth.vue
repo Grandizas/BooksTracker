@@ -34,12 +34,14 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router';
+
 const props = defineProps<{
   headerNote: string;
   footer: {
     buttonText: string;
     redirectQuestion: string;
-    redirectLink: { text: string; to: '/auth/login' | '/auth/register' };
+    redirectLink: { text: string; to: RouteLocationRaw };
   };
   loading?: boolean;
 }>();

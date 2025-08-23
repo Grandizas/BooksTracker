@@ -31,7 +31,6 @@
   "register": {
     "confirmPassword": "Confirm Password",
     "confirmYourPassword": "Confirm your password",
-    "min6Chars": "min 6 characters",
     "fullName": "Full Name",
     "enterFullName": "Enter your full name",
     "alreadyHaveAccount": "Already have an account?",

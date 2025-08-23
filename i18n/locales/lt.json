@@ -31,7 +31,6 @@
   "register": {
     "confirmPassword": "Patvirtinti slaptažodį",
     "confirmYourPassword": "Patvirtinkite savo slaptažodį",
-    "min6Chars": "mažiausiai 6 simboliai",
     "fullName": "Pilnas vardas",
     "enterFullName": "Įveskite savo pilną vardą",
     "alreadyHaveAccount": "Jau turite paskyrą?",

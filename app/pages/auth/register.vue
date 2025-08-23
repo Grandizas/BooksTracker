@@ -44,7 +44,7 @@
         v-model="form.password"
         :type="state.passwordShow ? 'text' : 'password'"
         :label="t('auth.password')"
-        :placeholder="`${t('auth.enterPassword')} (${t('register.min6Chars')})`"
+        :placeholder="t('auth.enterPassword')"
         :right-buttons="[
           {
             icon: ['far', state.passwordShow ? 'eye' : 'eye-slash'],
@@ -77,6 +77,9 @@
       />
       <p v-if="errors.repeatPassword" class="text-error">
         {{ errors.repeatPassword }}
+      </p>
+      <p v-if="apiError" class="text-error">
+        {{ apiError }}
       </p>
     </forms-auth>
   </div>

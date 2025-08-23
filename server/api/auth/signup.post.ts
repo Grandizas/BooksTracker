@@ -1,5 +1,4 @@
-// server/api/auth/signup.post.ts
-import { defineEventHandler, readBody, createError } from 'h3';
+import { defineEventHandler, readBody, createError, getRequestURL } from 'h3';
 import { serverSignUpSchema } from '~/utils/validation/auth';
 import { serverSupabaseClient } from '#supabase/server';
 
@@ -18,14 +17,23 @@ export default defineEventHandler(async (event) => {
   const supabase = await serverSupabaseClient(event);
   const { fullName, email, password } = parsed.data;
 
+  const origin = getRequestURL(event).origin;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { fullName } },
+    options: {
+      data: { fullName },
+      emailRedirectTo: `${origin}/auth/login`,
+      // captchaToken, // if you integrate hCaptcha/Turnstile later
+    },
   });
 
   if (error) {
-    throw createError({ statusCode: 400, statusMessage: error.message });
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Sign up failed. Please try again.',
+      data: import.meta.dev ? { details: error.message } : undefined,
+    });
   }
 
   return { user: data.user };

@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/auth/login',
       callback: '/confirm',
-      exclude: ['/auth/login', '/auth/register'], // Add public routes here
+      exclude: ['/auth/login', '/auth/register', '/auth/check-email'], // Add public routes here
     },
   },
   css: [

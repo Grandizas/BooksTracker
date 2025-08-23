@@ -22,14 +22,7 @@ export default defineEventHandler(async (event) => {
     password,
   });
   if (error) {
-    const msg = error.message?.toLowerCase() ?? '';
-    if (msg.includes('email not confirmed')) {
-      throw createError({
-        statusCode: 403,
-        statusMessage:
-          'Email not confirmed. Please check your inbox for the verification link.',
-      });
-    }
+    // Avoid leaking whether the email exists or is unconfirmed
     throw createError({
       statusCode: 401,
       statusMessage: 'Invalid email or password.',
@@ -37,8 +30,12 @@ export default defineEventHandler(async (event) => {
   }
 
   // Cookie/session is handled by @nuxtjs/supabase automatically.
-  return {
-    userId: data.user?.id,
-    email: data.user?.email,
-  };
+  const user = data.user;
+  if (!user) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Unexpected auth response.',
+    });
+  }
+  return { userId: user.id, email: user.email };
 });
