@@ -15,17 +15,27 @@
     "enterEmail": "Įveskite el. paštą",
     "password": "Slaptažodis",
     "enterPassword": "Įveskite slaptažodį",
-    "signUp": "Registruotis",
     "signIn": "Prisijungti",
     "signOut": "Atsijungti",
     "invalidEmail": "Neteisingas el. pašto adresas",
     "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
   },
   "login": {
+    "signUp": "Registruotis",
     "welcome": "Sveiki sugrįžę!",
     "title": "Prisijungti prie savo paskyros",
     "forgotPassword": "Pamiršote slaptažodį?",
     "noAccount": "Neturite paskyros?",
     "invalidCredentials": "Neteisingi prisijungimo duomenys"
+  },
+  "register": {
+    "confirmPassword": "Patvirtinti slaptažodį",
+    "confirmYourPassword": "Patvirtinkite savo slaptažodį",
+    "min6Chars": "mažiausiai 6 simboliai",
+    "fullName": "Pilnas vardas",
+    "enterFullName": "Įveskite savo pilną vardą",
+    "alreadyHaveAccount": "Jau turite paskyrą?",
+    "createAccount": "Sukurti paskyrą",
+    "startTracking": "Sukurkite paskyrą, kad pradėtumėte sekti knygas"
   }
 }
