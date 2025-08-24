@@ -1,5 +1,5 @@
 <template>
-  <div class="wishlist"></div>
+  <main class="wishlist"></main>
 </template>
 
 <script setup lang="ts"></script>

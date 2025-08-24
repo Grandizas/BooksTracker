@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main class="email-confirmation">
     <forms-auth
       :header-note="t('checkEmail.headerNote')"
       :footer="{
@@ -17,7 +17,7 @@
         {{ t('checkEmail.ifNotReceived') }}
       </p>
     </forms-auth>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

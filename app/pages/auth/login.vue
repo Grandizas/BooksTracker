@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <main class="login-page">
     <forms-auth
       :header-note="`${t('login.welcome')} ${t('login.title')}`"
       :footer="footer"
@@ -49,7 +49,7 @@
         {{ state.errors.general[0] }}
       </p>
     </forms-auth>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

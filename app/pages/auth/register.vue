@@ -1,5 +1,5 @@
 <template>
-  <div class="register-page">
+  <main class="register-page">
     <forms-auth
       :header-note="t('register.startTracking')"
       :footer="footer"
@@ -82,7 +82,7 @@
         {{ apiError }}
       </p>
     </forms-auth>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
