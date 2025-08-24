@@ -1,3 +1,23 @@
+import type { LocaleObject } from '#i18n';
+
+const locales: LocaleObject[] = [
+  { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
+  { code: 'lt', iso: 'lt-LT', name: 'Lietuvių', file: 'lt.json' },
+];
+
+const publicAuth = [
+  '/auth/login',
+  '/auth/register',
+  '/auth/check-email',
+  '/confirm', // callback should also be public
+];
+
+// Build: raw paths + all locale-prefixed variants
+const exclude = [
+  ...publicAuth,
+  ...locales.flatMap((l) => publicAuth.map((p) => `/${l.code}${p}`)),
+];
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -12,7 +32,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/auth/login',
       callback: '/confirm',
-      exclude: ['/auth/login', '/auth/register', '/auth/check-email'], // Add public routes here
+      exclude,
     },
   },
   css: [
@@ -21,10 +41,8 @@ export default defineNuxtConfig({
     '@/assets/style/base/_normalize.scss',
   ],
   i18n: {
-    locales: [
-      { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
-      { code: 'lt', iso: 'lt-LT', name: 'Lietuvių', file: 'lt.json' },
-    ],
+    strategy: 'prefix_except_default',
+    locales,
     defaultLocale: 'en',
     langDir: 'locales/',
   },

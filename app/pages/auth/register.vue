@@ -167,14 +167,5 @@ async function handleRegister() {
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/style/utilities/_errors.scss';
-@use '@/assets/style/abstracts/_functions.scss' as *;
-
-.register-page {
-  display: flex;
-  gap: spacing(2);
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
+@use '@/assets/style/pages/auth/_general.scss';
 </style>

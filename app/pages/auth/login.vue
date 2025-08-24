@@ -60,6 +60,7 @@ import { useAuth } from '~/composables/useAuth';
 
 const { t } = useI18n();
 const { login } = useAuth();
+const localePath = useLocalePath();
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
 
@@ -74,7 +75,10 @@ const state = reactive({
 const footer = computed(() => ({
   buttonText: state.loading ? t('common.loading') : t('auth.signIn'),
   redirectQuestion: t('login.noAccount'),
-  redirectLink: { text: t('auth.signUp'), to: '/auth/register' as const },
+  redirectLink: {
+    text: t('auth.signUp'),
+    to: localePath('/auth/register'),
+  },
 }));
 
 function resetErrors() {
@@ -102,14 +106,5 @@ async function handleLogin() {
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/style/utilities/_errors.scss';
-@use '@/assets/style/abstracts/_functions.scss' as *;
-
-.login-page {
-  display: flex;
-  gap: spacing(2);
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
+@use '@/assets/style/pages/auth/_general.scss';
 </style>
