@@ -1,5 +1,5 @@
 <template>
-  <div class="register-page">
+  <section id="main-content" class="register-page" tabindex="-1">
     <forms-auth
       :header-note="t('register.startTracking')"
       :footer="footer"
@@ -7,7 +7,7 @@
       @submit="handleRegister()"
     >
       <!-- ------------------------
-             [ Full Name Input ]
+           [ Full Name Input ]
       ------------------------- -->
       <ui-input
         id="login-page-full-name-input"
@@ -82,7 +82,7 @@
         {{ apiError }}
       </p>
     </forms-auth>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">

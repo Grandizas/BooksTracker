@@ -1,9 +1,7 @@
 <template>
   <div class="default-layout">
     <layout-header />
-    <main>
-      <NuxtPage />
-    </main>
+    <slot />
   </div>
 </template>
 

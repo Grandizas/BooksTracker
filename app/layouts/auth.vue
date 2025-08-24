@@ -1,9 +1,7 @@
 <template>
-  <div class="auth-layout">
-    <main>
-      <NuxtPage />
-    </main>
-  </div>
+  <main class="auth-layout">
+    <slot />
+  </main>
 </template>
 
 <script setup lang="ts"></script>
