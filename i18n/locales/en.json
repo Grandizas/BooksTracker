@@ -17,7 +17,7 @@
     "password": "Password",
     "enterPassword": "Enter your password",
     "signIn": "Sign In",
-    "signOut": "Sign Out",
+    "logout": "Log Out",
     "invalidEmail": "Invalid email address",
     "passwordShort": "Password must be at least 6 characters long"
   },

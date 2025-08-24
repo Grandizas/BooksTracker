@@ -1,4 +1,3 @@
-// composables/useAuth.ts
 import type { SignInInput } from '~/utils/validation/auth';
 import { signInSchema } from '~/utils/validation/auth';
 
@@ -39,5 +38,9 @@ export function useAuth() {
     }
   }
 
-  return { login };
+  async function logout() {
+    await $fetch('/api/auth/logout', { method: 'POST' });
+  }
+
+  return { login, logout };
 }

@@ -1,5 +1,7 @@
 <template>
   <section id="main-content" class="register-page" tabindex="-1">
+    <ui-language-switcher />
+
     <forms-auth
       :header-note="t('register.startTracking')"
       :footer="footer"
@@ -164,4 +166,15 @@ async function handleRegister() {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use '@/assets/style/utilities/_errors.scss';
+@use '@/assets/style/abstracts/_functions.scss' as *;
+
+.register-page {
+  display: flex;
+  gap: spacing(2);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+</style>

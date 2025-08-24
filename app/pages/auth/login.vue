@@ -1,5 +1,7 @@
 <template>
   <section id="main-content" class="login-page" tabindex="-1">
+    <ui-language-switcher />
+
     <forms-auth
       :header-note="`${t('login.welcome')} ${t('login.title')}`"
       :footer="footer"
@@ -101,4 +103,13 @@ async function handleLogin() {
 
 <style scoped lang="scss">
 @use '@/assets/style/utilities/_errors.scss';
+@use '@/assets/style/abstracts/_functions.scss' as *;
+
+.login-page {
+  display: flex;
+  gap: spacing(2);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 </style>
