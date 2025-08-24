@@ -1,6 +1,6 @@
 <template>
   <main class="auth-layout">
-    <NuxtPage />
+    <slot />
   </main>
 </template>
 
