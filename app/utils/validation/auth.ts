@@ -1,52 +1,72 @@
-// utils/validation/auth.ts
+// utils/validation.auth.ts
 import { z } from 'zod';
 
-// Password rules (edit to taste)
-export const passwordSchema = z
-  .string()
-  .min(8, 'Password must be at least 8 characters')
-  .max(72, 'Password must be at most 72 characters')
-  .regex(/[a-z]/, 'Must include a lowercase letter')
-  .regex(/[A-Z]/, 'Must include an uppercase letter')
-  .regex(/\d/, 'Must include a number')
-  .regex(/[^A-Za-z0-9]/, 'Must include a symbol');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type T = (key: string, params?: Record<string, any>) => string;
 
-// 1) Base object (ZodObject) — can use `.omit()`, `.pick()`, etc.
-const signUpBase = z.object({
-  fullName: z
+export function buildAuthSchemas(t: T) {
+  const passwordSchema = z
     .string()
-    .trim()
-    .min(2, 'Full name is too short')
-    .max(100, 'Full name is too long')
-    .refine(
-      (v) => v.split(/\s+/).filter(Boolean).length >= 2,
-      'Please enter first and last name',
-    ),
-  // If your zod version doesn't support `.toLowerCase()`, replace with `.transform(s => s.toLowerCase())`
-  email: z.string().trim().toLowerCase().email('Invalid email'),
-  password: passwordSchema,
-  repeatPassword: z.string(),
-});
-
-// 2) Client schema with cross-field check (now becomes ZodEffects)
-export const signUpSchema = signUpBase.superRefine((data, ctx) => {
-  if (data.password !== data.repeatPassword) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      path: ['repeatPassword'],
-      message: 'Passwords must match',
+    .min(8, { message: t('authErrors.passwordAtLeast8Chars') })
+    .max(72, { message: t('authErrors.passwordAtMost72Chars') })
+    .regex(/[a-z]/, { message: t('authErrors.passwordMustContainLowercase') })
+    .regex(/[A-Z]/, { message: t('authErrors.passwordMustContainUppercase') })
+    .regex(/\d/, { message: t('authErrors.passwordMustContainNumber') })
+    .regex(/[^A-Za-z0-9]/, {
+      message: t('authErrors.passwordMustContainSpecialChar'),
     });
-  }
-});
-export type SignUpInput = z.infer<typeof signUpSchema>;
 
-// 3) Server schema — omit repeatPassword from the *base*
-export const serverSignUpSchema = signUpBase.omit({ repeatPassword: true });
-export type ServerSignUpInput = z.infer<typeof serverSignUpSchema>;
+  const signUpBase = z.object({
+    fullName: z
+      .string()
+      .trim()
+      .min(2, { message: t('authErrors.fullNameAtLeast2Chars') })
+      .max(100, { message: t('authErrors.fullNameAtMost100Chars') })
+      .refine((v) => v.split(/\s+/).filter(Boolean).length >= 2, {
+        message: t('authErrors.fullNamePleaseEnterValidName'),
+      }),
+    email: z
+      .string()
+      .trim()
+      .toLowerCase()
+      .email({ message: t('authErrors.emailInvalid') }),
+    password: passwordSchema,
+    repeatPassword: z.string(),
+  });
 
-// Optional: sign-in
-export const signInSchema = z.object({
-  email: z.string().trim().toLowerCase().email('Invalid email'),
-  password: z.string().min(1, 'Password is required'),
-});
-export type SignInInput = z.infer<typeof signInSchema>;
+  const signUpSchema = signUpBase.superRefine((data, ctx) => {
+    if (data.password !== data.repeatPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['repeatPassword'],
+        message: t('authErrors.passwordMustMatch'),
+      });
+    }
+  });
+
+  const serverSignUpSchema = signUpBase.omit({ repeatPassword: true });
+
+  const signInSchema = z.object({
+    email: z
+      .string()
+      .trim()
+      .toLowerCase()
+      .email({ message: t('authErrors.emailInvalid') }),
+    password: z
+      .string()
+      .min(1, { message: t('authErrors.passwordIsRequired') }),
+  });
+
+  return { passwordSchema, signUpSchema, serverSignUpSchema, signInSchema };
+}
+
+// (optional) exported types
+export type SignUpInput = z.infer<
+  ReturnType<typeof buildAuthSchemas>['signUpSchema']
+>;
+export type ServerSignUpInput = z.infer<
+  ReturnType<typeof buildAuthSchemas>['serverSignUpSchema']
+>;
+export type SignInInput = z.infer<
+  ReturnType<typeof buildAuthSchemas>['signInSchema']
+>;

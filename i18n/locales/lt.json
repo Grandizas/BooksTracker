@@ -21,6 +21,24 @@
     "invalidEmail": "Neteisingas el. pašto adresas",
     "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
   },
+  "authErrors": {
+    "passwordAtLeast8Chars": "Slaptažodis turi būti bent 8 simbolių ilgio",
+    "passwordAtMost72Chars": "Slaptažodis turi būti ne ilgesnis nei 72 simboliai",
+    "passwordMustContainLowercase": "Slaptažodis turi turėti bent vieną mažąją raidę",
+    "passwordMustContainUppercase": "Slaptažodis turi turėti bent vieną didžiąją raidę",
+    "passwordMustContainNumber": "Slaptažodis turi turėti bent vieną skaičių",
+    "passwordMustContainSpecialChar": "Slaptažodis turi turėti bent vieną specialų simbolį",
+    "fullNameAtLeast2Chars": "Pilnas vardas turi būti bent 2 simbolių ilgio",
+    "fullNameAtMost100Chars": "Pilnas vardas turi būti ne ilgesnis nei 100 simbolių",
+    "fullNamePleaseEnterValidName": "Prašome įvesti pilną vardą",
+    "emailInvalid": "Neteisingas el. pašto adresas",
+    "emailNotConfirmed": "El. paštas nėra patvirtintas",
+    "couldNotResendConfirmation": "Nepavyko išsiųsti patvirtinimo el. laiško iš naujo",
+    "passwordMustMatch": "Slaptažodžiai turi sutapti",
+    "passwordIsRequired": "Slaptažodis yra privalomas",
+    "invalidEmailOrPassword": "Neteisingas el. paštas arba slaptažodis",
+    "validationFailed": "Patvirtinimas nepavyko"
+  },
   "login": {
     "welcome": "Sveiki sugrįžę!",
     "title": "Prisijungti prie savo paskyros",
@@ -36,6 +54,16 @@
     "alreadyHaveAccount": "Jau turite paskyrą?",
     "createAccount": "Sukurti paskyrą",
     "startTracking": "Sukurkite paskyrą, kad pradėtumėte sekti knygas"
+  },
+  "checkEmail": {
+    "checkYourInbox": "Patikrinkite savo pašto dėžutę",
+    "ifNotReceived": "Jei negavote el. laiško, patikrinkite šlamšto aplanką arba spustelėkite siųsti iš naujo.",
+    "resendEmail": "Siųsti el. laišką iš naujo",
+    "emailSent": "El. laiškas išsiųstas",
+    "backTo": "Atgal į"
+  },
+  "errors": {
+    "unexpectedAuthResponse": "Netikėta autentifikacijos atsakymas"
   },
   "common": {
     "loading": "Kraunama..."

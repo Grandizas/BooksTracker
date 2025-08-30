@@ -21,6 +21,24 @@
     "invalidEmail": "Invalid email address",
     "passwordShort": "Password must be at least 6 characters long"
   },
+  "authErrors": {
+    "passwordAtLeast8Chars": "Password must be at least 8 characters long",
+    "passwordAtMost72Chars": "Password must be at most 72 characters long",
+    "passwordMustContainLowercase": "Password must contain at least one lowercase letter",
+    "passwordMustContainUppercase": "Password must contain at least one uppercase letter",
+    "passwordMustContainNumber": "Password must contain at least one number",
+    "passwordMustContainSpecialChar": "Password must contain at least one special character",
+    "fullNameAtLeast2Chars": "Full name must be at least 2 characters long",
+    "fullNameAtMost100Chars": "Full name must be at most 100 characters",
+    "fullNamePleaseEnterValidName": "Please enter a valid full name",
+    "emailInvalid": "Invalid email address",
+    "emailNotConfirmed": "Email not confirmed",
+    "couldNotResendConfirmation": "Could not resend confirmation email",
+    "passwordMustMatch": "Passwords must match",
+    "passwordIsRequired": "Password is required",
+    "invalidEmailOrPassword": "Invalid email or password",
+    "validationFailed": "Validation failed"
+  },
   "login": {
     "welcome": "Welcome back!",
     "title": "Sign in to your account",
@@ -36,6 +54,16 @@
     "alreadyHaveAccount": "Already have an account?",
     "createAccount": "Create an account",
     "startTracking": "Create your account to start tracking books"
+  },
+  "checkEmail": {
+    "checkYourInbox": "Check your inbox",
+    "ifNotReceived": "If you did not receive the email, please check your spam folder or click resend.",
+    "resendEmail": "Resend Email",
+    "emailSent": "An email has been sent",
+    "backTo": "Back to"
+  },
+  "errors": {
+    "unexpectedAuthResponse": "Unexpected authentication response"
   },
   "common": {
     "loading": "Loading..."
