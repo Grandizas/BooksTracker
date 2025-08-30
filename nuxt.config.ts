@@ -9,6 +9,7 @@ const publicAuth = [
   '/auth/login',
   '/auth/register',
   '/auth/check-email',
+  '/auth/callback',
   '/confirm', // callback should also be public
 ];
 
@@ -19,9 +20,24 @@ const exclude = [
 ];
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      meta: [{ charset: 'utf-8' }],
+      htmlAttrs: { lang: 'lt' },
+      link: [
+        {
+          rel: 'preload',
+          as: 'font',
+          href: '/fonts/Inter/Inter-Variable.woff2',
+          type: 'font/woff2',
+          crossorigin: 'anonymous',
+        },
+      ],
+    },
+  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/supabase'],
+  modules: ['@nuxt/eslint', '@nuxtjs/i18n', '@nuxtjs/supabase', '@pinia/nuxt'],
   runtimeConfig: {
     public: {
       supabaseUrl: process.env.SUPABASE_URL,
