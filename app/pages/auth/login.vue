@@ -6,6 +6,7 @@
       :header-note="`${t('login.welcome')} ${t('login.title')}`"
       :footer="footer"
       :loading="state.loading"
+      :resend="{ show: state.displayResend, countdown: state.resendCountdown }"
       @submit="handleLogin()"
     >
       <!-- ------------------------
@@ -59,7 +60,7 @@ import { useI18n } from 'vue-i18n';
 import { useAuth } from '~/composables/useAuth';
 
 const { t } = useI18n();
-const { login } = useAuth();
+const { login, resendConfirmation } = useAuth();
 const localePath = useLocalePath();
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
@@ -69,8 +70,13 @@ const state = reactive({
   password: '',
   passwordShow: false,
   loading: false,
+  resendCountdown: 0,
+  displayResend: false,
   errors: {} as Partial<Record<string, string[]>>,
 });
+
+// Add computed to check if all fields are empty
+const allFieldsEmpty = computed(() => !state.email || !state.password);
 
 const footer = computed(() => ({
   buttonText: state.loading ? t('common.loading') : t('auth.signIn'),
@@ -79,15 +85,27 @@ const footer = computed(() => ({
     text: t('auth.signUp'),
     to: localePath('/auth/register'),
   },
+  disabled: allFieldsEmpty.value,
 }));
 
 function resetErrors() {
   state.errors = {};
 }
 
+function startCountDown() {
+  state.resendCountdown = 60;
+  const interval = setInterval(() => {
+    state.resendCountdown--;
+    if (state.resendCountdown <= 0) {
+      clearInterval(interval);
+    }
+  }, 1000);
+}
+
 async function handleLogin() {
   resetErrors();
   state.loading = true;
+
   try {
     const result = await login({
       email: state.email,
@@ -95,6 +113,12 @@ async function handleLogin() {
     });
 
     state.errors = result.errors || {};
+
+    if (result?.needsConfirmation) {
+      await resendConfirmation(state.email);
+      state.displayResend = true;
+      startCountDown();
+    }
 
     if (result.success) {
       await navigateTo('/');

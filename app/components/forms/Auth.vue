@@ -19,8 +19,17 @@
     </div>
 
     <div class="form-auth__footer">
-      <ui-button type="submit" :disabled="loading">
+      <ui-button type="submit" :disabled="loading || footer.disabled">
         {{ footer.buttonText }}
+      </ui-button>
+
+      <ui-button
+        v-if="resend?.show"
+        type="button"
+        :disabled="loading || footer.disabled || resend.countdown > 0"
+        @click.prevent="emit('resend')"
+      >
+        {{ t('checkEmail.resendEmail') }}
       </ui-button>
 
       <p>
@@ -36,18 +45,33 @@
 <script setup lang="ts">
 import type { RouteLocationRaw } from 'vue-router';
 
-const props = defineProps<{
-  headerNote: string;
-  footer: {
-    buttonText: string;
-    redirectQuestion: string;
-    redirectLink: { text: string; to: RouteLocationRaw };
-  };
-  loading?: boolean;
-}>();
+const { t } = useI18n();
+
+const props = withDefaults(
+  defineProps<{
+    headerNote: string;
+    footer: {
+      buttonText: string;
+      disabled?: boolean;
+      redirectQuestion: string;
+      redirectLink: { text: string; to: RouteLocationRaw };
+    };
+    resend?: {
+      show: boolean;
+      countdown: number;
+    };
+    loading?: boolean;
+  }>(),
+  {
+    disabled: false,
+    loading: false,
+    resend: () => ({ show: false, countdown: 0 }),
+  },
+);
 
 const emit = defineEmits<{
-  (e: 'submit'): void;
+  submit: [];
+  resend: [];
 }>();
 
 function onSubmit() {

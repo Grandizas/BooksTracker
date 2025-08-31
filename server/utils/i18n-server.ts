@@ -1,4 +1,3 @@
-// Adjust the import paths to your actual locale files
 import en from '~~/i18n/locales/en.json';
 import lt from '~~/i18n/locales/lt.json';
 

@@ -10,9 +10,13 @@ import { buildAuthSchemas } from '~/utils/validation/auth';
 import { createServerT } from '~~/server/utils/i18n-server';
 
 export default defineEventHandler(async (event) => {
+  /**
+   * Here we're reading the request body
+   * that should contain { email, password }
+   */
   const body = await readBody(event);
 
-  // 1) pick a locale (cookie preferred; fall back to Accept-Language or 'en')
+  // * --- Getting language. First from cookies, then from header --- *
   const cookies = parseCookies(event);
   const cookieLocale = cookies['i18n_redirected'] || cookies['locale'];
   const acceptLang = getRequestHeader(event, 'accept-language');
@@ -26,6 +30,11 @@ export default defineEventHandler(async (event) => {
   const { signInSchema } = buildAuthSchemas(t);
   const parsed = signInSchema.safeParse(body);
 
+  /**
+   * Check repeatedly if parsing was successful.
+   * If not, return the error details with 400 status code
+   * (bad request from the client).
+   */
   if (!parsed.success) {
     throw createError({
       statusCode: 400,
@@ -41,6 +50,7 @@ export default defineEventHandler(async (event) => {
     email,
     password,
   });
+
   if (error) {
     if (error.code === 'email_not_confirmed') {
       throw createError({
