@@ -30,6 +30,7 @@
         @click.prevent="emit('resend')"
       >
         {{ t('checkEmail.resendEmail') }}
+        {{ resend.countdown > 0 ? resend.countdown : '' }}
       </ui-button>
 
       <p>

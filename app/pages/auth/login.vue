@@ -6,9 +6,10 @@
       :header-note="`${t('login.welcome')} ${t('login.title')}`"
       :footer="footer"
       :loading="state.loading"
-      :resend="{ show: state.displayResend, countdown: state.resendCountdown }"
+      :resend="{ show: state.displayResend, countdown }"
       @submit="handleLogin()"
     >
+      {{ countdown }}
       <!-- ------------------------
              [ Email Input ]
       ------------------------- -->
@@ -58,19 +59,25 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '~/composables/useAuth';
-
-const { t } = useI18n();
-const { login, resendConfirmation } = useAuth();
-const localePath = useLocalePath();
+import { useToast } from 'vue-toastification';
+import { useResendCooldown } from '~/composables/useResend';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
+
+const { t } = useI18n();
+const toast = useToast();
+const localePath = useLocalePath();
+const { login, resendConfirmation } = useAuth();
+const { countdown, isCoolingDown, start } = useResendCooldown(
+  'resendCooldownAt',
+  60,
+);
 
 const state = reactive({
   email: '',
   password: '',
   passwordShow: false,
   loading: false,
-  resendCountdown: 0,
   displayResend: false,
   errors: {} as Partial<Record<string, string[]>>,
 });
@@ -92,14 +99,15 @@ function resetErrors() {
   state.errors = {};
 }
 
-function startCountDown() {
-  state.resendCountdown = 60;
-  const interval = setInterval(() => {
-    state.resendCountdown--;
-    if (state.resendCountdown <= 0) {
-      clearInterval(interval);
-    }
-  }, 1000);
+async function handleResend() {
+  if (isCoolingDown.value) return;
+
+  try {
+    await resendConfirmation(state.email);
+    start(60);
+  } finally {
+    toast.success(t('checkEmail.emailSent'));
+  }
 }
 
 async function handleLogin() {
@@ -107,6 +115,7 @@ async function handleLogin() {
   state.loading = true;
 
   try {
+    // * --- Attempt login --- *
     const result = await login({
       email: state.email,
       password: state.password,
@@ -114,10 +123,10 @@ async function handleLogin() {
 
     state.errors = result.errors || {};
 
+    // * --- If user email is not confirmed --- *
     if (result?.needsConfirmation) {
-      await resendConfirmation(state.email);
+      await handleResend();
       state.displayResend = true;
-      startCountDown();
     }
 
     if (result.success) {
