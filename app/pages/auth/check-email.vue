@@ -6,9 +6,12 @@
         buttonText: t('checkEmail.resendEmail'),
         redirectQuestion: t('checkEmail.backTo'),
         redirectLink: { text: t('auth.signIn'), to: '/auth/login' },
+        disabled: isCoolingDown,
       }"
+      :show-submit="false"
+      :resend="{ show: true, countdown }"
       :loading="loading"
-      @submit="handleResend"
+      @resend="handleResend"
     >
       <p>
         {{ t('checkEmail.ifNotReceived') }}
@@ -20,15 +23,21 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
-import { useSupabaseClient } from '#imports';
+import { useAuth } from '#imports';
 import { useToast } from 'vue-toastification';
+import { useResendCooldown } from '~/composables/useResend';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
+
+const { countdown, isCoolingDown, start } = useResendCooldown(
+  'resendCooldownAt',
+  60,
+);
 
 const { t } = useI18n();
 const route = useRoute();
 const toast = useToast();
-const supabase = useSupabaseClient();
+const { resendConfirmation } = useAuth();
 
 const loading = ref(false);
 
@@ -37,22 +46,16 @@ const email = computed(() =>
 );
 
 async function handleResend() {
-  if (!email.value) {
-    // Optionally navigate back to register or show an inline error
-    return;
-  }
+  if (isCoolingDown.value) return;
+
   loading.value = true;
+
   try {
-    const { error } = await supabase.auth.resend({
-      type: 'signup',
-      email: email.value,
-    });
-    if (error && import.meta.dev) console.warn('Resend failed:', error.message);
-    else {
-      toast.success(t('checkEmail.emailSent'));
-    }
+    await resendConfirmation(email.value || '');
+    start(60);
   } finally {
     loading.value = false;
+    toast.success(t('checkEmail.emailSent'));
   }
 }
 </script>

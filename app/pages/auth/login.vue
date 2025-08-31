@@ -9,7 +9,6 @@
       :resend="{ show: state.displayResend, countdown }"
       @submit="handleLogin()"
     >
-      {{ countdown }}
       <!-- ------------------------
              [ Email Input ]
       ------------------------- -->

@@ -10,7 +10,6 @@ const publicAuth = [
   '/auth/register',
   '/auth/check-email',
   '/auth/callback',
-  '/confirm', // callback should also be public
 ];
 
 // Build: raw paths + all locale-prefixed variants
@@ -47,7 +46,7 @@ export default defineNuxtConfig({
   supabase: {
     redirectOptions: {
       login: '/auth/login',
-      callback: '/confirm',
+      callback: '/auth/callback',
       exclude,
     },
   },

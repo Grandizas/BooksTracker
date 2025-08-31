@@ -19,7 +19,11 @@
     </div>
 
     <div class="form-auth__footer">
-      <ui-button type="submit" :disabled="loading || footer.disabled">
+      <ui-button
+        v-if="showSubmit"
+        type="submit"
+        :disabled="loading || footer.disabled"
+      >
         {{ footer.buttonText }}
       </ui-button>
 
@@ -27,7 +31,7 @@
         v-if="resend?.show"
         type="button"
         :disabled="loading || footer.disabled || resend.countdown > 0"
-        @click.prevent="emit('resend')"
+        @click="emit('resend')"
       >
         {{ t('checkEmail.resendEmail') }}
         {{ resend.countdown > 0 ? resend.countdown : '' }}
@@ -61,11 +65,13 @@ const props = withDefaults(
       show: boolean;
       countdown: number;
     };
+    showSubmit?: boolean;
     loading?: boolean;
   }>(),
   {
     disabled: false,
     loading: false,
+    showSubmit: true,
     resend: () => ({ show: false, countdown: 0 }),
   },
 );
