@@ -24,14 +24,19 @@ onMounted(async () => {
     const { error } = await supabase.auth.exchangeCodeForSession(
       window.location.href,
     );
+
     if (error) throw error;
+
     // honor middleware redirect safely
     const q = route.query.redirect;
     const candidate = Array.isArray(q) ? q[0] : q;
     const next =
-      typeof candidate === 'string' && candidate.startsWith('/')
-        ? decodeURIComponent(candidate)
+      typeof candidate === 'string' &&
+      candidate.startsWith('/') &&
+      !candidate.startsWith('//')
+        ? candidate
         : '/';
+
     await router.replace(next);
   } catch (e) {
     console.error(e);
