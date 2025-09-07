@@ -41,9 +41,10 @@ const { resendConfirmation } = useAuth();
 
 const loading = ref(false);
 
-const email = computed(() =>
-  (route.query.email as string | undefined)?.trim().toLowerCase(),
-);
+const email = computed(() => {
+  const q = route.query.email as string | undefined;
+  return q?.trim()?.toLowerCase() ?? '';
+});
 
 async function handleResend() {
   if (isCoolingDown.value) return;

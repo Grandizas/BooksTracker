@@ -22,11 +22,19 @@ onMounted(async () => {
   try {
     // Exchange the code in the current URL for a session (PKCE)
     const { error } = await supabase.auth.exchangeCodeForSession(
-      window.location.href as string,
+      window.location.href,
     );
-    if (error) console.error(error);
-    await router.replace('/');
-  } catch {
+    if (error) throw error;
+    // honor middleware redirect safely
+    const q = route.query.redirect;
+    const candidate = Array.isArray(q) ? q[0] : q;
+    const next =
+      typeof candidate === 'string' && candidate.startsWith('/')
+        ? decodeURIComponent(candidate)
+        : '/';
+    await router.replace(next);
+  } catch (e) {
+    console.error(e);
     toast.error('Authentication failed');
     await router.replace('/auth/login');
   }

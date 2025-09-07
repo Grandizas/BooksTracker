@@ -14,14 +14,14 @@ export default defineEventHandler(async (event) => {
 
   const supabase = await serverSupabaseClient(event);
   const { public: { siteUrl } = {} } = useRuntimeConfig();
-  const base = siteUrl
-    ? siteUrl.startsWith('http')
-      ? siteUrl
-      : `https://${siteUrl}`
-    : undefined;
-  const emailRedirectTo = base
-    ? new URL('/auth/callback', base).toString()
-    : undefined;
+  if (!siteUrl) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Server misconfigured: public.siteUrl is required.',
+    });
+  }
+  const base = siteUrl.startsWith('http') ? siteUrl : `https://${siteUrl}`;
+  const emailRedirectTo = new URL('/auth/callback', base).toString();
 
   // Resend confirmation email
   const { error } = await supabase.auth.resend({
@@ -31,9 +31,10 @@ export default defineEventHandler(async (event) => {
   });
 
   if (error) {
+    console.error('Resend confirmation failed:', error);
     throw createError({
       statusCode: 400,
-      statusMessage: error.message,
+      statusMessage: 'Could not resend confirmation email.',
     });
   }
 
