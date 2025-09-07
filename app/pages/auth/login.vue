@@ -91,6 +91,10 @@ const footer = computed(() => ({
     text: t('auth.signUp'),
     to: localePath('/auth/register'),
   },
+  forgotPasswordLink: {
+    text: t('login.forgotPassword'),
+    to: localePath('/auth/forgot-password'),
+  },
   disabled: allFieldsEmpty.value,
 }));
 

@@ -1,8 +1,11 @@
 import type { SignInInput } from '~/utils/validation/auth';
 import { buildAuthSchemas } from '~/utils/validation/auth';
 import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
 
 type FieldErrors = Partial<Record<'email' | 'password' | 'general', string[]>>;
+
+const emailSchema = z.string().trim().toLowerCase().email();
 
 export function useAuth() {
   const { t } = useI18n();
@@ -101,9 +104,29 @@ export function useAuth() {
     });
   }
 
+  async function forgotPassword(
+    rawEmail: string,
+  ): Promise<{ ok: boolean; message: string }> {
+    const parsed = emailSchema.safeParse(rawEmail);
+    if (!parsed.success) {
+      return { ok: false, message: t('authErrors.invalidEmail') };
+    }
+
+    try {
+      await $fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        body: { email: parsed.data }, // server builds redirectTo
+      });
+      return { ok: true, message: t('auth.resetEmailSentGeneric') };
+    } catch {
+      // generic to prevent enumeration and avoid leaking infra errors
+      return { ok: true, message: t('auth.resetEmailSentGeneric') };
+    }
+  }
+
   async function logout() {
     await $fetch('/api/auth/logout', { method: 'POST' });
   }
 
-  return { login, logout, resendConfirmation };
+  return { login, logout, resendConfirmation, forgotPassword };
 }

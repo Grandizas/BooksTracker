@@ -1,4 +1,4 @@
-import type { LocaleObject } from '#i18n';
+import type { LocaleObject } from 'vue-i18n-routing';
 
 const locales: LocaleObject[] = [
   { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
@@ -10,6 +10,8 @@ const publicAuth = [
   '/auth/register',
   '/auth/check-email',
   '/auth/callback',
+  '/auth/forgot-password',
+  '/auth/reset-password',
 ];
 
 // Build: raw paths + all locale-prefixed variants
@@ -41,6 +43,7 @@ export default defineNuxtConfig({
     public: {
       supabaseUrl: process.env.SUPABASE_URL,
       supabaseKey: process.env.SUPABASE_KEY,
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
     },
   },
   supabase: {
