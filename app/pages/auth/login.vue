@@ -8,6 +8,7 @@
       :loading="state.loading"
       :resend="{ show: state.displayResend, countdown }"
       @submit="handleLogin()"
+      @resend="handleResend"
     >
       <!-- ------------------------
              [ Email Input ]
@@ -101,15 +102,14 @@ const footer = computed(() => ({
 function resetErrors() {
   state.errors = {};
 }
-
 async function handleResend() {
   if (isCoolingDown.value) return;
-
   try {
     await resendConfirmation(state.email);
     start(60);
-  } finally {
     toast.success(t('checkEmail.emailSent'));
+  } catch {
+    toast.error(t('authErrors.couldNotResendConfirmation'));
   }
 }
 

@@ -6,9 +6,9 @@
       </nuxt-link>
     </p>
 
-    <p>
-      <span>{{ footer.redirectQuestion }}</span>
-      <nuxt-link v-if="footer?.redirectLink?.to" :to="footer.redirectLink.to">
+    <p v-if="footer.redirectQuestion || footer?.redirectLink">
+      <span v-if="footer.redirectQuestion">{{ footer.redirectQuestion }}</span>
+      <nuxt-link v-if="footer?.redirectLink" :to="footer.redirectLink.to">
         {{ footer.redirectLink.text }}
       </nuxt-link>
     </p>

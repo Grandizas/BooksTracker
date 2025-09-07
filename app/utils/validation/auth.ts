@@ -27,19 +27,21 @@ export function buildAuthSchemas(t: T) {
   /* -------------------------------
       [ Checks for registration ]
   -------------------------------- */
-  const signUpBase = z.object({
-    fullName: z
-      .string()
-      .trim()
-      .min(2, { message: t('authErrors.fullNameAtLeast2Chars') })
-      .max(100, { message: t('authErrors.fullNameAtMost100Chars') })
-      .refine((v) => v.split(/\s+/).filter(Boolean).length >= 2, {
-        message: t('authErrors.fullNamePleaseEnterValidName'),
-      }),
-    email: emailSchema,
-    password: passwordSchema,
-    repeatPassword: z.string(),
-  });
+  const signUpBase = z
+    .object({
+      fullName: z
+        .string()
+        .trim()
+        .min(2, { message: t('authErrors.fullNameAtLeast2Chars') })
+        .max(100, { message: t('authErrors.fullNameAtMost100Chars') })
+        .refine((v) => v.split(/\s+/).filter(Boolean).length >= 2, {
+          message: t('authErrors.fullNamePleaseEnterValidName'),
+        }),
+      email: emailSchema,
+      password: passwordSchema,
+      repeatPassword: z.string(),
+    })
+    .strict();
 
   /**
    * Add additional check to ensure password and repeatPassword match
@@ -65,12 +67,14 @@ export function buildAuthSchemas(t: T) {
   /* -------------------------------
          [ Checks for login ]
   -------------------------------- */
-  const signInSchema = z.object({
-    email: emailSchema,
-    password: z
-      .string()
-      .min(1, { message: t('authErrors.passwordIsRequired') }),
-  });
+  const signInSchema = z
+    .object({
+      email: emailSchema,
+      password: z
+        .string()
+        .min(1, { message: t('authErrors.passwordIsRequired') }),
+    })
+    .strict();
 
   return { passwordSchema, signUpSchema, serverSignUpSchema, signInSchema };
 }

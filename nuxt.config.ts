@@ -24,7 +24,6 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [{ charset: 'utf-8' }],
-      htmlAttrs: { lang: 'lt' },
       link: [
         {
           rel: 'preload',

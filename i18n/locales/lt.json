@@ -18,10 +18,10 @@
     "enterPassword": "Įveskite slaptažodį",
     "signIn": "Prisijungti",
     "logout": "Atsijungti",
-    "newPassword": "New Password",
-    "enterNewPassword": "Enter your new password",
-    "resetPassword": "Reset Password",
-    "updatePassword": "Update Password",
+    "newPassword": "Naujas slaptažodis",
+    "enterNewPassword": "Įveskite naują slaptažodį",
+    "resetPassword": "Atstatyti slaptažodį",
+    "updatePassword": "Atnaujinti slaptažodį",
     "invalidEmail": "Neteisingas el. pašto adresas",
     "resetEmailSent": "Atstatymo el. laiškas išsiųstas į {email}",
     "resetEmailSentGeneric": "Atstatymo el. laiškas išsiųstas, jei el. paštas yra užregistruotas",
@@ -30,7 +30,8 @@
     "backToLogin": "Atgal į prisijungimą",
     "resetHelpHint": "Atstatymo nuoroda bus išsiųsta į nurodytą el. pašto adresą",
     "resendIn": "Siųsti iš naujo po {s} sekundžių",
-    "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
+    "passwordShort": "Slaptažodis turi būti bent 8 simbolių ilgio",
+    "passwordUpdated": "Slaptažodis sėkmingai atnaujintas"
   },
   "authErrors": {
     "passwordAtLeast8Chars": "Slaptažodis turi būti bent 8 simbolių ilgio",

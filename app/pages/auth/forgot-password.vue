@@ -31,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeUnmount } from 'vue';
 import { useToast } from 'vue-toastification';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });

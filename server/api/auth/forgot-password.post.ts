@@ -1,4 +1,4 @@
-import { defineEventHandler, createError, getRequestHeader } from 'h3';
+import { defineEventHandler, readBody, createError } from 'h3';
 import { z } from 'zod';
 import { serverSupabaseClient } from '#supabase/server';
 
@@ -18,20 +18,19 @@ export default defineEventHandler(async (event) => {
   }
   const email = parsed.data.email;
 
-  // Build a safe redirectTo from trusted base
-  // Prefer runtimeConfig.public.siteUrl (set it in nuxt.config), fallback to the current host
+  // Build a safe redirectTo ONLY from trusted config
   const config = useRuntimeConfig();
-  const host = getRequestHeader(event, 'host') ?? 'localhost:3000';
-  const protocol = config.public?.siteUrl?.startsWith('http')
-    ? undefined
-    : 'http';
-  const base =
-    config.public?.siteUrl ??
-    `${getRequestHeader(event, 'x-forwarded-proto') ?? protocol ?? 'http'}://${host}`;
+  const siteUrl = config.public?.siteUrl;
+  if (!siteUrl) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Server misconfigured: public.siteUrl is required.',
+    });
+  }
 
   // Optionally extract locale from cookie/header if you use i18n
   // For simplicity, redirect to /auth/reset-password (your page)
-  const redirectTo = new URL('/auth/reset-password', base).toString();
+  const redirectTo = new URL('/auth/reset-password', siteUrl).toString();
 
   // Ask Supabase to send the email
   const { error } = await supabase.auth.resetPasswordForEmail(email, {

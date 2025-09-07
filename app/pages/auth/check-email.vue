@@ -53,9 +53,12 @@ async function handleResend() {
   try {
     await resendConfirmation(email.value || '');
     start(60);
+    toast.success(t('checkEmail.emailSent'));
+  } catch (err) {
+    console.error(err);
+    toast.error(t('authErrors.couldNotResendConfirmation'));
   } finally {
     loading.value = false;
-    toast.success(t('checkEmail.emailSent'));
   }
 }
 </script>

@@ -97,7 +97,6 @@ const props = withDefaults(
     };
   }>(),
   {
-    disabled: false,
     loading: false,
     showSubmit: true,
     noValidate: false,

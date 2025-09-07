@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
-    throw createError({ statusCode: 500, statusMessage: error.message });
+    throw createError({ statusCode: 500, statusMessage: 'Logout failed' });
   }
   return { ok: true };
 });

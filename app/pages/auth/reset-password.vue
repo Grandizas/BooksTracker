@@ -11,7 +11,7 @@
       <ui-input
         id="reset-password-new-password-input"
         v-model="newPassword"
-        type="password"
+        :type="passwordShow ? 'text' : 'password'"
         :label="t('auth.newPassword')"
         :placeholder="t('auth.enterNewPassword')"
         :right-buttons="[
@@ -42,7 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import { useToast } from 'vue-toastification';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
@@ -81,13 +80,13 @@ async function checkLinkExpiration() {
   if (err || !data.session) {
     error.value = t('authErrors.invalidOrExpiredLink');
   } else {
-    error.value = 'Please set your new password';
+    error.value = '';
   }
 }
 
 async function updatePassword() {
   if (newPassword.value !== confirmPassword.value) {
-    error.value = 'Passwords do not match';
+    error.value = t('authErrors.passwordMustMatch');
     return;
   }
 
@@ -96,9 +95,9 @@ async function updatePassword() {
   });
 
   if (err) {
-    error.value = err.message;
+    error.value = t('errors.unexpectedAuthResponse');
   } else {
-    navigateTo('/');
+    await navigateTo('/', { replace: true });
     toast.success(t('auth.passwordUpdated'));
   }
 }
