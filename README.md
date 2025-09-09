@@ -28,55 +28,9 @@ A fun, personal web app to track your reading progress — built with **Nuxt 3**
 | 📚 Wishlist         | Books you want to read next                      |
 | 🏁 Completed list   | Celebrate finished books with notes              |
 | ☁️ Cloud storage    | Book cover images stored in Supabase             |
-| 🔐 Optional auth    | Email/password login (if enabled in Supabase)    |
+| 🔐 Auth    | Email/password login (if enabled in Supabase)    |
 
 ---
-
-## ⚙️ Setup
-
-```bash
-# Clone the repo
-git clone https://github.com/your-username/reading-tracker.git
-cd reading-tracker
-```
-# Install dependencies
-`npm install`
-
-# Create .env file
-`cp .env.example .env`
-
-
-
-Add to .env:
-```
-SUPABASE_URL= https://your-project.supabase.co
-SUPABASE_ANON_KEY= your-anon-key
-⚠️ Make sure RLS is enabled and policies are configured in Supabase
-```
-
-Go to SQL Editor:
-```sql
-create table books (
-  id          uuid primary key default uuid_generate_v4(),
-  user_id     uuid references auth.users(id),
-  title       text not null,
-  author      text,
-  total_pages int,
-  pages_read  int default 0,
-  status      text default 'wishlist',
-  cover_url   text,
-  notes       text,
-  inserted_at timestamptz default now()
-);
-
-alter table books enable row level security;
-
-create policy "Users can CRUD own books"
-  on books
-  for all
-  using (auth.uid() = user_id)
-  with check (auth.uid() = user_id);
-```
 
 Create storage -> covers
 
