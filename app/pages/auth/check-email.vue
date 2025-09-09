@@ -1,18 +1,18 @@
 <template>
   <section id="main-content" class="email-confirmation" tabindex="-1">
     <forms-auth
-      :header-note="t('checkEmail.headerNote')"
+      :header-note="t('checkEmail.checkYourInbox')"
       :footer="{
         buttonText: t('checkEmail.resendEmail'),
         redirectQuestion: t('checkEmail.backTo'),
-        redirectLink: { text: t('auth.login'), to: '/auth/login' },
+        redirectLink: { text: t('auth.signIn'), to: '/auth/login' },
+        disabled: isCoolingDown,
       }"
+      :show-submit="false"
+      :resend="{ show: true, countdown }"
       :loading="loading"
-      @submit="handleResend"
+      @resend="handleResend"
     >
-      <p class="mb-4">
-        {{ t('checkEmail.checkYourInbox') }}
-      </p>
       <p>
         {{ t('checkEmail.ifNotReceived') }}
       </p>
@@ -23,28 +23,41 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
-import { useSupabaseClient } from '#imports';
-const loading = ref(false);
+import { useAuth } from '#imports';
+import { useToast } from 'vue-toastification';
+import { useResendCooldown } from '~/composables/useResend';
+
+definePageMeta({ layout: 'auth', middleware: 'guest' });
+
+const { countdown, isCoolingDown, start } = useResendCooldown(
+  'resendCooldownAt',
+  60,
+);
 
 const { t } = useI18n();
 const route = useRoute();
-const supabase = useSupabaseClient();
-const email = computed(() =>
-  (route.query.email as string | undefined)?.trim().toLowerCase(),
-);
+const toast = useToast();
+const { resendConfirmation } = useAuth();
+
+const loading = ref(false);
+
+const email = computed(() => {
+  const q = route.query.email as string | undefined;
+  return q?.trim()?.toLowerCase() ?? '';
+});
 
 async function handleResend() {
-  if (!email.value) {
-    // Optionally navigate back to register or show an inline error
-    return;
-  }
+  if (isCoolingDown.value) return;
+
   loading.value = true;
+
   try {
-    const { error } = await supabase.auth.resend({
-      type: 'signup',
-      email: email.value,
-    });
-    if (error && import.meta.dev) console.warn('Resend failed:', error.message);
+    await resendConfirmation(email.value || '');
+    start(60);
+    toast.success(t('checkEmail.emailSent'));
+  } catch (err) {
+    console.error(err);
+    toast.error(t('authErrors.couldNotResendConfirmation'));
   } finally {
     loading.value = false;
   }

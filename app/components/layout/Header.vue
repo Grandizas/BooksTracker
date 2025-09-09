@@ -6,10 +6,11 @@
     <layout-navigation class="header__center" />
     <div class="header__right">
       <ui-language-switcher />
+      <ui-logout-button />
     </div>
   </header>
 </template>
 
 <style scoped lang="scss">
-@use "@/assets/style/layout/_header.scss";
+@use '@/assets/style/layout/_header.scss';
 </style>

@@ -1,0 +1,81 @@
+@use '../../abstracts/colors.scss' as *;
+@use '../../abstracts/_variables.scss' as *;
+@use '../../abstracts/_functions.scss' as *;
+@use '../../abstracts/_mixins.scss' as *;
+
+.language-switcher {
+  position: relative;
+  font-size: $font-size-sm;
+
+  &__button {
+    gap: spacing(1);
+    cursor: pointer;
+    white-space: nowrap;
+    padding: spacing(1);
+    align-items: center;
+    display: inline-flex;
+    background: $color-white;
+    border-radius: $radius-md;
+    border: 1px solid var(--border, #e5e7eb);
+
+    &:focus-visible {
+      outline-offset: 2px;
+      outline: 2px solid $color-blue;
+    }
+
+    .icon-chevron {
+      margin-left: 2px;
+      @include box(rem(16));
+    }
+  }
+
+  &__menu {
+    right: 0;
+    top: 100%;
+    z-index: 50;
+    list-style: none;
+    position: absolute;
+    padding: spacing(1);
+    min-width: rem(240);
+    margin-top: spacing(1);
+    border-radius: $radius-md;
+    background-color: $color-white;
+    border: 1px solid var(--border, #e5e7eb);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  &__option {
+    display: flex;
+    gap: spacing(1);
+    cursor: pointer;
+    align-items: center;
+    border-radius: $radius-sm;
+    padding: spacing(1) spacing(1);
+
+    &:hover,
+    &:focus {
+      background: #f4f4f5;
+      outline: none;
+    }
+    &[aria-selected='true'] {
+      font-weight: 600;
+    }
+  }
+
+  .icon-flag {
+    height: rem(20);
+  }
+
+  .name {
+    flex: 1;
+
+    .muted {
+      opacity: 0.6;
+      font-weight: 400;
+    }
+  }
+
+  .icon-check {
+    @include box(rem(18));
+  }
+}

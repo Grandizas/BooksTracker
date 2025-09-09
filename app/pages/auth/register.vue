@@ -1,5 +1,7 @@
 <template>
   <section id="main-content" class="register-page" tabindex="-1">
+    <ui-language-switcher />
+
     <forms-auth
       :header-note="t('register.startTracking')"
       :footer="footer"
@@ -88,7 +90,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import type { z } from 'zod';
-import { signUpSchema, type SignUpInput } from '~/utils/validation/auth';
+import { buildAuthSchemas, type SignUpInput } from '~/utils/validation/auth';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
 
@@ -110,10 +112,16 @@ const form = reactive<SignUpInput>({
 const errors = ref<Record<string, string>>({});
 const apiError = ref<string | null>(null); // optional global error (e.g., email taken)
 
+// Add computed to check if all fields are empty
+const allFieldsEmpty = computed(() =>
+  Object.values(form).some((f: string) => !f),
+);
+
 const footer = computed(() => ({
   buttonText: state.loading ? t('common.loading') : t('register.createAccount'),
   redirectQuestion: t('register.alreadyHaveAccount'),
   redirectLink: { text: t('auth.signIn'), to: '/auth/login' as const },
+  disabled: allFieldsEmpty.value,
 }));
 
 function toFieldErrors(err: z.ZodError) {
@@ -133,7 +141,9 @@ function resetErrors() {
 async function handleRegister() {
   resetErrors();
 
+  const { signUpSchema } = buildAuthSchemas(t);
   const parsed = signUpSchema.safeParse(form);
+
   if (!parsed.success) {
     errors.value = toFieldErrors(parsed.error);
     return;
@@ -164,4 +174,6 @@ async function handleRegister() {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use '@/assets/style/pages/auth/_general.scss';
+</style>
