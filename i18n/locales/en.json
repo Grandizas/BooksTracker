@@ -50,7 +50,9 @@
     "passwordIsRequired": "Password is required",
     "invalidEmailOrPassword": "Invalid email or password",
     "validationFailed": "Validation failed",
-    "invalidOrExpiredLink": "Invalid or expired link"
+    "invalidOrExpiredLink": "Invalid or expired link",
+    "oauthError": "OAuth error occurred",
+    "authFailed": "Authentication failed"
   },
   "login": {
     "welcome": "Welcome back!",

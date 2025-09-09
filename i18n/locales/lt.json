@@ -50,7 +50,9 @@
     "passwordIsRequired": "Slaptažodis yra privalomas",
     "invalidEmailOrPassword": "Neteisingas el. paštas arba slaptažodis",
     "validationFailed": "Patvirtinimas nepavyko",
-    "invalidOrExpiredLink": "Neteisinga arba pasibaigusi nuoroda"
+    "invalidOrExpiredLink": "Neteisinga arba pasibaigusi nuoroda",
+    "oauthError": "Įvyko OAuth klaida",
+    "authFailed": "Autentifikacija nepavyko"
   },
   "login": {
     "welcome": "Sveiki sugrįžę!",
