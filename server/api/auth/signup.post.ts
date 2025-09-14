@@ -1,4 +1,3 @@
-// server/api/auth/signup.post.ts
 import { defineEventHandler, readBody, createError, getRequestURL } from 'h3';
 import { buildAuthSchemas } from '~/utils/validation/auth';
 import { serverSupabaseClient } from '#supabase/server';

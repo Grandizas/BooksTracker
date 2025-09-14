@@ -52,7 +52,8 @@
     "validationFailed": "Patvirtinimas nepavyko",
     "invalidOrExpiredLink": "Neteisinga arba pasibaigusi nuoroda",
     "oauthError": "Įvyko OAuth klaida",
-    "authFailed": "Autentifikacija nepavyko"
+    "authFailed": "Autentifikacija nepavyko",
+    "emailAlreadyRegistered": "Jei šis el. paštas nėra registruotas, gausite patvirtinimo nuorodą."
   },
   "login": {
     "welcome": "Sveiki sugrįžę!",
@@ -78,7 +79,8 @@
     "backTo": "Atgal į"
   },
   "errors": {
-    "unexpectedAuthResponse": "Netikėta autentifikacijos atsakymas"
+    "unexpectedAuthResponse": "Netikėta autentifikacijos atsakymas",
+    "unknownError": "Įvyko klaida. Bandykite dar kartą."
   },
   "common": {
     "loading": "Kraunama..."

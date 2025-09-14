@@ -9,25 +9,23 @@ const emailSchema = z.string().trim().toLowerCase().email();
 
 export function useAuth() {
   const { t } = useI18n();
+  const user = useSupabaseUser();
+  const isAuthenticated = computed(() => !!user.value);
 
   async function login(payload: SignInInput): Promise<{
     success: boolean;
     needsConfirmation?: boolean;
     errors?: FieldErrors;
   }> {
-    /**
-     * Here we're getting schema from 'zod',
-     * where fields are being checked if it has a valid value.
-     * In this case, email and password fields.
-     */
+    // validate on client for instant field errors
     const { signInSchema } = buildAuthSchemas(t);
     const parsed = signInSchema.safeParse(payload);
-
     /**
      * Here we're getting result if every field meets requirements.
      * If the result was unsuccessful, we're sending back error details to
      * `login.vue`, where this `useAuth()` is called
      */
+
     if (!parsed.success) {
       return {
         success: false,
@@ -35,41 +33,19 @@ export function useAuth() {
       };
     }
 
-    /**
-     * So here is where the real login happens.
-     * We're sending a request to our `/server/api/login.post.ts` with data:
-     * { email, password }
-     */
-    try {
-      await $fetch('/api/auth/login', {
-        method: 'POST',
-        body: parsed.data,
-      });
+    // Perform auth on client so Supabase emits auth state change immediately
+    const supabase = useSupabaseClient();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: parsed.data.email,
+      password: parsed.data.password,
+    });
 
-      // * --- Returning success in case we want to set disabled or show toast --- *
-      return { success: true };
+    if (error) {
+      // Normalize common cases
+      const code = (error as unknown as { code?: string })?.code;
+      const msg = (error.message || '').toLowerCase();
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (e: any) {
-      /**
-       * We can modify what we want to get with error.
-       * We're providing an error object in `/server/api/login.post.ts`
-       * There we can include translation strings, error codes from Supabase
-       * and much more...
-       */
-      const err = e as {
-        data?: { message?: string };
-        statusMessage?: string;
-        message?: string;
-      };
-
-      /**
-       * This code is an example of a custom error object.
-       * We set createError({ data: { code: 'some-code' } });
-       */
-      const code = e?.data?.data?.code;
-
-      if (code === 'email_not_confirmed') {
+      if (code === 'email_not_confirmed' || msg.includes('confirm')) {
         return {
           success: false,
           needsConfirmation: true,
@@ -82,19 +58,21 @@ export function useAuth() {
         };
       }
 
-      // Prefer server statusMessage (which is now a KEY), then data.message, then message
-      const keyOrText =
-        err.statusMessage ??
-        err.data?.message ??
-        err.message ??
-        'errors.unexpected';
-
-      // If it's a known key, t(key) will differ; if not, show the raw text.
-      const translated = t(keyOrText);
-      const msg = translated !== keyOrText ? translated : keyOrText;
-
-      return { success: false, errors: { general: [msg] } };
+      // Invalid credentials or other generic auth errors
+      return {
+        success: false,
+        errors: { general: [t('authErrors.invalidEmailOrPassword')] },
+      };
     }
+
+    if (!data?.user) {
+      return {
+        success: false,
+        errors: { general: [t('errors.unexpectedAuthResponse')] },
+      };
+    }
+
+    return { success: true };
   }
 
   async function resendConfirmation(email: string) {
@@ -125,8 +103,10 @@ export function useAuth() {
   }
 
   async function logout() {
-    await $fetch('/api/auth/logout', { method: 'POST' });
+    // Use client-side sign out so auth state updates immediately
+    const supabase = useSupabaseClient();
+    await supabase.auth.signOut();
   }
 
-  return { login, logout, resendConfirmation, forgotPassword };
+  return { login, logout, resendConfirmation, forgotPassword, isAuthenticated };
 }

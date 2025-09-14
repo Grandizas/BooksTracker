@@ -37,6 +37,9 @@
       <p v-if="errors.email" class="text-error">
         {{ errors.email }}
       </p>
+      <p class="text-note">
+        {{ t('authErrors.emailAlreadyRegistered') }}
+      </p>
 
       <!-- ------------------------
             [ Password Input ]
@@ -159,14 +162,31 @@ async function handleRegister() {
       body: { fullName, email, password },
     });
 
+    if (import.meta.client) {
+      try {
+        localStorage.setItem('lastSignupEmail', email);
+      } catch {
+        /* ignore */
+      }
+    }
+
     // If you require email confirmation, navigate to a “check your email” page
     // or directly to app if email confirmations are disabled.
-    await navigateTo('/auth/check-email');
+    await navigateTo(`/auth/check-email?email=${encodeURIComponent(email)}`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    // Map API/server errors (e.g., Supabase: Email already registered)
-    apiError.value =
-      e?.data?.statusMessage || e?.message || t('errors.unknownError');
+    // Prefer field-specific errors if provided by the server
+    const fieldErrors = e?.data?.fieldErrors as
+      | Record<string, string[]>
+      | undefined;
+    if (fieldErrors?.email?.length) {
+      errors.value.email = fieldErrors.email[0] || '';
+      apiError.value = null;
+    } else {
+      // Fallback to a generic error message
+      apiError.value =
+        e?.data?.statusMessage || e?.message || t('errors.unknownError');
+    }
     // You can also set field-specific errors if your server returns them
   } finally {
     state.loading = false;

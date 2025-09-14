@@ -1,5 +1,10 @@
 <template>
-  <section id="main-content" class="login-page" tabindex="-1">
+  <section
+    v-if="!isAuthenticated"
+    id="main-content"
+    class="login-page"
+    tabindex="-1"
+  >
     <ui-language-switcher />
 
     <forms-auth
@@ -67,7 +72,8 @@ definePageMeta({ layout: 'auth', middleware: 'guest' });
 const { t } = useI18n();
 const toast = useToast();
 const localePath = useLocalePath();
-const { login, resendConfirmation } = useAuth();
+const route = useRoute();
+const { login, resendConfirmation, isAuthenticated } = useAuth();
 const { countdown, isCoolingDown, start } = useResendCooldown(
   'resendCooldownAt',
   60,
@@ -133,7 +139,10 @@ async function handleLogin() {
     }
 
     if (result.success) {
-      await navigateTo('/');
+      const dest = typeof route.query.redirect === 'string' && route.query.redirect.startsWith('/')
+        ? route.query.redirect
+        : '/';
+      await navigateTo(dest, { replace: true });
     }
   } finally {
     state.loading = false;

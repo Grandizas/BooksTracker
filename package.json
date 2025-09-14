@@ -26,6 +26,7 @@
     "@nuxt/eslint": "^1.6.0",
     "eslint": "^9.31.0",
     "prettier": "^3.6.2",
-    "sass-embedded": "^1.89.2"
+    "sass-embedded": "^1.89.2",
+    "vee-validate": "^4.15.1"
   }
 }

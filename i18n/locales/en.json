@@ -52,7 +52,8 @@
     "validationFailed": "Validation failed",
     "invalidOrExpiredLink": "Invalid or expired link",
     "oauthError": "OAuth error occurred",
-    "authFailed": "Authentication failed"
+    "authFailed": "Authentication failed",
+    "emailAlreadyRegistered": "If this email can register, you’ll receive a confirmation link."
   },
   "login": {
     "welcome": "Welcome back!",
@@ -78,7 +79,8 @@
     "backTo": "Back to"
   },
   "errors": {
-    "unexpectedAuthResponse": "Unexpected authentication response"
+    "unexpectedAuthResponse": "Unexpected authentication response",
+    "unknownError": "Something went wrong. Please try again."
   },
   "common": {
     "loading": "Loading..."
