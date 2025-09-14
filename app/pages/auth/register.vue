@@ -38,7 +38,7 @@
         {{ errors.email }}
       </p>
       <p class="text-note">
-        {{ t('authErrors.emailAlreadyRegistered') }}
+        {{ t('authErrors.confirmationEmailIfRegistered') }}
       </p>
 
       <!-- ------------------------

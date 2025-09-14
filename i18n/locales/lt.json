@@ -53,7 +53,7 @@
     "invalidOrExpiredLink": "Neteisinga arba pasibaigusi nuoroda",
     "oauthError": "Įvyko OAuth klaida",
     "authFailed": "Autentifikacija nepavyko",
-    "emailAlreadyRegistered": "Jei šis el. paštas nėra registruotas, gausite patvirtinimo nuorodą."
+    "confirmationEmailIfRegistered": "Jei šis el. paštas nėra registruotas, gausite patvirtinimo nuorodą."
   },
   "login": {
     "welcome": "Sveiki sugrįžę!",

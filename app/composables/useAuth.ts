@@ -76,10 +76,20 @@ export function useAuth() {
   }
 
   async function resendConfirmation(email: string) {
-    await $fetch('/api/auth/resend-confirmation', {
-      method: 'POST',
-      body: { email },
-    });
+    const parsed = emailSchema.safeParse(email);
+
+    if (!parsed.success) {
+      throw new Error(t('authErrors.emailInvalid'));
+    }
+
+    try {
+      await $fetch('/api/auth/resend-confirmation', {
+        method: 'POST',
+        body: { email: parsed.data },
+      });
+    } catch {
+      throw new Error(t('authErrors.couldNotResendConfirmation'));
+    }
   }
 
   async function forgotPassword(

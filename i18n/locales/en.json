@@ -53,7 +53,7 @@
     "invalidOrExpiredLink": "Invalid or expired link",
     "oauthError": "OAuth error occurred",
     "authFailed": "Authentication failed",
-    "emailAlreadyRegistered": "If this email can register, you’ll receive a confirmation link."
+    "confirmationEmailIfRegistered": "If this email can register, you’ll receive a confirmation link."
   },
   "login": {
     "welcome": "Welcome back!",
