@@ -13,16 +13,20 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/pro-regular-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
-    "@nuxt/eslint": "^1.6.0",
     "@nuxtjs/i18n": "^10.0.0",
     "@nuxtjs/supabase": "^1.5.3",
-    "eslint": "^9.31.0",
+    "@pinia/nuxt": "^0.11.2",
     "nuxt": "^4.0.0",
+    "pinia": "^3.0.3",
     "vue": "^3.5.17",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.6.0",
+    "eslint": "^9.31.0",
     "prettier": "^3.6.2",
-    "sass-embedded": "^1.89.2"
+    "sass-embedded": "^1.89.2",
+    "vee-validate": "^4.15.1"
   }
 }

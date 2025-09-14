@@ -1,5 +1,7 @@
 <template>
   <section id="main-content" class="register-page" tabindex="-1">
+    <ui-language-switcher />
+
     <forms-auth
       :header-note="t('register.startTracking')"
       :footer="footer"
@@ -34,6 +36,9 @@
       />
       <p v-if="errors.email" class="text-error">
         {{ errors.email }}
+      </p>
+      <p class="text-note">
+        {{ t('authErrors.confirmationEmailIfRegistered') }}
       </p>
 
       <!-- ------------------------
@@ -88,7 +93,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import type { z } from 'zod';
-import { signUpSchema, type SignUpInput } from '~/utils/validation/auth';
+import { buildAuthSchemas, type SignUpInput } from '~/utils/validation/auth';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
 
@@ -110,10 +115,16 @@ const form = reactive<SignUpInput>({
 const errors = ref<Record<string, string>>({});
 const apiError = ref<string | null>(null); // optional global error (e.g., email taken)
 
+// Add computed to check if all fields are empty
+const allFieldsEmpty = computed(() =>
+  Object.values(form).some((f: string) => !f),
+);
+
 const footer = computed(() => ({
   buttonText: state.loading ? t('common.loading') : t('register.createAccount'),
   redirectQuestion: t('register.alreadyHaveAccount'),
   redirectLink: { text: t('auth.signIn'), to: '/auth/login' as const },
+  disabled: allFieldsEmpty.value,
 }));
 
 function toFieldErrors(err: z.ZodError) {
@@ -133,7 +144,9 @@ function resetErrors() {
 async function handleRegister() {
   resetErrors();
 
+  const { signUpSchema } = buildAuthSchemas(t);
   const parsed = signUpSchema.safeParse(form);
+
   if (!parsed.success) {
     errors.value = toFieldErrors(parsed.error);
     return;
@@ -149,14 +162,31 @@ async function handleRegister() {
       body: { fullName, email, password },
     });
 
+    if (import.meta.client) {
+      try {
+        localStorage.setItem('lastSignupEmail', email);
+      } catch {
+        /* ignore */
+      }
+    }
+
     // If you require email confirmation, navigate to a “check your email” page
     // or directly to app if email confirmations are disabled.
-    await navigateTo('/auth/check-email');
+    await navigateTo(`/auth/check-email?email=${encodeURIComponent(email)}`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    // Map API/server errors (e.g., Supabase: Email already registered)
-    apiError.value =
-      e?.data?.statusMessage || e?.message || t('errors.unknownError');
+    // Prefer field-specific errors if provided by the server
+    const fieldErrors = e?.data?.fieldErrors as
+      | Record<string, string[]>
+      | undefined;
+    if (fieldErrors?.email?.length) {
+      errors.value.email = fieldErrors.email[0] || '';
+      apiError.value = null;
+    } else {
+      // Fallback to a generic error message
+      apiError.value =
+        e?.data?.statusMessage || e?.message || t('errors.unknownError');
+    }
     // You can also set field-specific errors if your server returns them
   } finally {
     state.loading = false;
@@ -164,4 +194,6 @@ async function handleRegister() {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use '@/assets/style/pages/auth/_general.scss';
+</style>

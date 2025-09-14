@@ -1,10 +1,19 @@
 <template>
-  <section id="main-content" class="login-page" tabindex="-1">
+  <section
+    v-if="!isAuthenticated"
+    id="main-content"
+    class="login-page"
+    tabindex="-1"
+  >
+    <ui-language-switcher />
+
     <forms-auth
       :header-note="`${t('login.welcome')} ${t('login.title')}`"
       :footer="footer"
       :loading="state.loading"
+      :resend="{ show: state.displayResend, countdown }"
       @submit="handleLogin()"
+      @resend="handleResend"
     >
       <!-- ------------------------
              [ Email Input ]
@@ -55,34 +64,67 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useAuth } from '~/composables/useAuth';
-
-const { t } = useI18n();
-const { login } = useAuth();
+import { useToast } from 'vue-toastification';
+import { useResendCooldown } from '~/composables/useResend';
 
 definePageMeta({ layout: 'auth', middleware: 'guest' });
+
+const { t } = useI18n();
+const toast = useToast();
+const localePath = useLocalePath();
+const route = useRoute();
+const { login, resendConfirmation, isAuthenticated } = useAuth();
+const { countdown, isCoolingDown, start } = useResendCooldown(
+  'resendCooldownAt',
+  60,
+);
 
 const state = reactive({
   email: '',
   password: '',
   passwordShow: false,
   loading: false,
+  displayResend: false,
   errors: {} as Partial<Record<string, string[]>>,
 });
+
+// Add computed to check if all fields are empty
+const allFieldsEmpty = computed(() => !state.email || !state.password);
 
 const footer = computed(() => ({
   buttonText: state.loading ? t('common.loading') : t('auth.signIn'),
   redirectQuestion: t('login.noAccount'),
-  redirectLink: { text: t('auth.signUp'), to: '/auth/register' as const },
+  redirectLink: {
+    text: t('auth.signUp'),
+    to: localePath('/auth/register'),
+  },
+  forgotPasswordLink: {
+    text: t('login.forgotPassword'),
+    to: localePath('/auth/forgot-password'),
+  },
+  disabled: allFieldsEmpty.value,
 }));
 
 function resetErrors() {
   state.errors = {};
 }
+async function handleResend() {
+  if (isCoolingDown.value) return;
+  try {
+    await resendConfirmation(state.email);
+    start(60);
+    toast.success(t('checkEmail.emailSent'));
+  } catch {
+    toast.error(t('authErrors.couldNotResendConfirmation'));
+  }
+}
 
 async function handleLogin() {
   resetErrors();
   state.loading = true;
+
   try {
+    // * --- Attempt login --- *
     const result = await login({
       email: state.email,
       password: state.password,
@@ -90,8 +132,17 @@ async function handleLogin() {
 
     state.errors = result.errors || {};
 
+    // * --- If user email is not confirmed --- *
+    if (result?.needsConfirmation) {
+      await handleResend();
+      state.displayResend = true;
+    }
+
     if (result.success) {
-      await navigateTo('/');
+      const dest = typeof route.query.redirect === 'string' && route.query.redirect.startsWith('/')
+        ? route.query.redirect
+        : '/';
+      await navigateTo(dest, { replace: true });
     }
   } finally {
     state.loading = false;
@@ -100,5 +151,5 @@ async function handleLogin() {
 </script>
 
 <style scoped lang="scss">
-@use '@/assets/style/utilities/_errors.scss';
+@use '@/assets/style/pages/auth/_general.scss';
 </style>

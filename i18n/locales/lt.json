@@ -17,9 +17,43 @@
     "password": "Slaptažodis",
     "enterPassword": "Įveskite slaptažodį",
     "signIn": "Prisijungti",
-    "signOut": "Atsijungti",
+    "logout": "Atsijungti",
+    "newPassword": "Naujas slaptažodis",
+    "enterNewPassword": "Įveskite naują slaptažodį",
+    "resetPassword": "Atstatyti slaptažodį",
+    "updatePassword": "Atnaujinti slaptažodį",
     "invalidEmail": "Neteisingas el. pašto adresas",
-    "passwordShort": "Slaptažodis turi būti bent 6 simbolių ilgio"
+    "resetEmailSent": "Atstatymo el. laiškas išsiųstas į {email}",
+    "resetEmailSentGeneric": "Atstatymo el. laiškas išsiųstas, jei el. paštas yra užregistruotas",
+    "forgotPassword": "Pamiršote slaptažodį?",
+    "sendResetLink": "Siųsti atstatymo nuorodą",
+    "backToLogin": "Atgal į prisijungimą",
+    "resetHelpHint": "Atstatymo nuoroda bus išsiųsta į nurodytą el. pašto adresą",
+    "resendIn": "Siųsti iš naujo po {s} sekundžių",
+    "passwordShort": "Slaptažodis turi būti bent 8 simbolių ilgio",
+    "passwordUpdated": "Slaptažodis sėkmingai atnaujintas"
+  },
+  "authErrors": {
+    "passwordAtLeast8Chars": "Slaptažodis turi būti bent 8 simbolių ilgio",
+    "passwordAtMost72Chars": "Slaptažodis turi būti ne ilgesnis nei 72 simboliai",
+    "passwordMustContainLowercase": "Slaptažodis turi turėti bent vieną mažąją raidę",
+    "passwordMustContainUppercase": "Slaptažodis turi turėti bent vieną didžiąją raidę",
+    "passwordMustContainNumber": "Slaptažodis turi turėti bent vieną skaičių",
+    "passwordMustContainSpecialChar": "Slaptažodis turi turėti bent vieną specialų simbolį",
+    "fullNameAtLeast2Chars": "Pilnas vardas turi būti bent 2 simbolių ilgio",
+    "fullNameAtMost100Chars": "Pilnas vardas turi būti ne ilgesnis nei 100 simbolių",
+    "fullNamePleaseEnterValidName": "Prašome įvesti pilną vardą",
+    "emailInvalid": "Neteisingas el. pašto adresas",
+    "emailNotConfirmed": "El. paštas nėra patvirtintas",
+    "couldNotResendConfirmation": "Nepavyko išsiųsti patvirtinimo el. laiško iš naujo",
+    "passwordMustMatch": "Slaptažodžiai turi sutapti",
+    "passwordIsRequired": "Slaptažodis yra privalomas",
+    "invalidEmailOrPassword": "Neteisingas el. paštas arba slaptažodis",
+    "validationFailed": "Patvirtinimas nepavyko",
+    "invalidOrExpiredLink": "Neteisinga arba pasibaigusi nuoroda",
+    "oauthError": "Įvyko OAuth klaida",
+    "authFailed": "Autentifikacija nepavyko",
+    "confirmationEmailIfRegistered": "Jei šis el. paštas nėra registruotas, gausite patvirtinimo nuorodą."
   },
   "login": {
     "welcome": "Sveiki sugrįžę!",
@@ -36,6 +70,17 @@
     "alreadyHaveAccount": "Jau turite paskyrą?",
     "createAccount": "Sukurti paskyrą",
     "startTracking": "Sukurkite paskyrą, kad pradėtumėte sekti knygas"
+  },
+  "checkEmail": {
+    "checkYourInbox": "Patikrinkite savo pašto dėžutę",
+    "ifNotReceived": "Jei negavote el. laiško, patikrinkite šlamšto aplanką arba spustelėkite siųsti iš naujo.",
+    "resendEmail": "Siųsti el. laišką iš naujo",
+    "emailSent": "El. laiškas išsiųstas",
+    "backTo": "Atgal į"
+  },
+  "errors": {
+    "unexpectedAuthResponse": "Netikėta autentifikacijos atsakymas",
+    "unknownError": "Įvyko klaida. Bandykite dar kartą."
   },
   "common": {
     "loading": "Kraunama..."

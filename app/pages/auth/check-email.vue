@@ -1,20 +1,25 @@
 <template>
   <section id="main-content" class="email-confirmation" tabindex="-1">
+    <ui-language-switcher />
+
     <forms-auth
-      :header-note="t('checkEmail.headerNote')"
+      :header-note="t('checkEmail.checkYourInbox')"
       :footer="{
         buttonText: t('checkEmail.resendEmail'),
         redirectQuestion: t('checkEmail.backTo'),
-        redirectLink: { text: t('auth.login'), to: '/auth/login' },
+        redirectLink: { text: t('auth.signIn'), to: '/auth/login' },
+        disabled: isCoolingDown || !email,
       }"
+      :show-submit="false"
+      :resend="{ show: true, countdown }"
       :loading="loading"
-      @submit="handleResend"
+      @resend="handleResend"
     >
-      <p class="mb-4">
-        {{ t('checkEmail.checkYourInbox') }}
-      </p>
       <p>
         {{ t('checkEmail.ifNotReceived') }}
+      </p>
+      <p v-if="!email" class="text-error">
+        {{ t('authErrors.emailInvalid') }}
       </p>
     </forms-auth>
   </section>
@@ -23,32 +28,61 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
-import { useSupabaseClient } from '#imports';
-const loading = ref(false);
+import { useAuth } from '#imports';
+import { useToast } from 'vue-toastification';
+import { useResendCooldown } from '~/composables/useResend';
+
+definePageMeta({ layout: 'auth', middleware: 'guest' });
+
+const { countdown, isCoolingDown, start } = useResendCooldown(
+  'resendCooldownAt',
+  60,
+);
 
 const { t } = useI18n();
 const route = useRoute();
-const supabase = useSupabaseClient();
-const email = computed(() =>
-  (route.query.email as string | undefined)?.trim().toLowerCase(),
-);
+const toast = useToast();
+const { resendConfirmation } = useAuth();
+
+const loading = ref(false);
+
+const email = computed(() => {
+  const q = route.query.email as string | undefined;
+  const fromQuery = q?.trim()?.toLowerCase();
+  if (fromQuery) return fromQuery;
+  if (import.meta.client) {
+    try {
+      const stored = localStorage.getItem('lastSignupEmail') || '';
+      return stored.trim().toLowerCase();
+    } catch {
+      /* Ignore */
+    }
+  }
+  return '';
+});
 
 async function handleResend() {
+  if (isCoolingDown.value) return;
   if (!email.value) {
-    // Optionally navigate back to register or show an inline error
+    toast.error(t('authErrors.emailInvalid'));
     return;
   }
+
   loading.value = true;
+
   try {
-    const { error } = await supabase.auth.resend({
-      type: 'signup',
-      email: email.value,
-    });
-    if (error && import.meta.dev) console.warn('Resend failed:', error.message);
+    await resendConfirmation(email.value);
+    start(60);
+    toast.success(t('checkEmail.emailSent'));
+  } catch (err) {
+    console.error(err);
+    toast.error(t('authErrors.couldNotResendConfirmation'));
   } finally {
     loading.value = false;
   }
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use '@/assets/style/pages/auth/_general.scss';
+</style>

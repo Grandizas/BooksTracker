@@ -1,0 +1,18 @@
+@use '../../utilities/_errors.scss';
+@use '../../abstracts/_colors.scss' as *;
+@use '../../abstracts/_variables.scss' as *;
+@use '../../abstracts/_functions.scss' as *;
+
+#main-content {
+  display: flex;
+  gap: spacing(2);
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-note {
+  color: $color-red;
+  margin-top: spacing(1);
+  font-size: $font-size-xs;
+}
