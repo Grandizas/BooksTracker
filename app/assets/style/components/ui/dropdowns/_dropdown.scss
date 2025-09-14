@@ -1,0 +1,44 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  &__toggle {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 120px;
+  }
+
+  &__icon {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  &__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.25rem;
+    padding: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    list-style: none;
+    width: 100%;
+    z-index: 10;
+  }
+
+  &__item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #f3f3f3;
+    }
+  }
+}

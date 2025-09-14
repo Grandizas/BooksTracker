@@ -36,6 +36,13 @@ $box-shadow-button: rgba(0, 0, 0, 0.1) 0 0 0 1px;
 $box-shadow-box: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
 // ------------------------------
+// Icon sizes
+// ------------------------------
+$icon-size-small: 1rem;  // 24px
+$icon-size-medium: 2rem; // 32px
+$icon-size-large: 3rem;  // 48px
+
+// ------------------------------
 // Z-index
 // ------------------------------
 $z-index-dropdown: 1000;

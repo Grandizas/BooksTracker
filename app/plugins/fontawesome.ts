@@ -10,6 +10,7 @@ import {
   faBookOpen,
   faCircleCheck,
   faPlus,
+  faUser,
   faEyeSlash,
   faXmark,
 } from '@fortawesome/pro-regular-svg-icons';
@@ -21,6 +22,7 @@ library.add(
   faEye,
   faHouse,
   faHeart,
+  faUser,
   faBookOpen,
   faCircleCheck,
   faPlus,
