@@ -83,6 +83,7 @@
     "unknownError": "Something went wrong. Please try again."
   },
   "profile": {
+    "profile": "Profile",
     "hi": "Hi, {name}",
     "settings": "Settings",
     "account": "Account",
@@ -96,6 +97,24 @@
     "profileUpdated": "Profile updated successfully",
     "currentPassword": "Current Password",
     "myProfile": "My Profile"
+  },
+  "account": {
+    "accountInfo": "Account Information",
+    "memberSince": "Member since",
+    "dataStorage": "Data Storage",
+    "storedLocally": "Stored locally on your device"
+  },
+  "statistics": {
+    "booksCompleted": "Books Completed",
+    "currentlyReading": "Currently Reading",
+    "onWishlist": "On Wishlist",
+    "pagesRead": "Pages Read"
+  },
+  "books": {
+    "totalBooks": "Total Books",
+    "completionRate": "Completion Rate",
+    "averageRating": "Average Rating",
+    "readingProgress": "Reading Progress"
   },
   "common": {
     "loading": "Loading..."

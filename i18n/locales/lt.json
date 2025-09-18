@@ -83,6 +83,7 @@
     "unknownError": "Įvyko klaida. Bandykite dar kartą."
   },
   "profile": {
+    "profile": "Profilis",
     "hi": "Sveiki, {name}",
     "settings": "Nustatymai",
     "account": "Paskyra",
@@ -96,6 +97,24 @@
     "profileUpdated": "Profilis sėkmingai atnaujintas",
     "currentPassword": "Dabartinis slaptažodis",
     "myProfile": "Mano profilis"
+  },
+  "account": {
+    "accountInfo": "Paskyros informacija",
+    "memberSince": "Narys nuo",
+    "dataStorage": "Duomenų saugojimas",
+    "storedLocally": "Saugoma jūsų įrenginyje"
+  },
+  "statistics": {
+    "booksCompleted": "Perskaitytos knygos",
+    "currentlyReading": "Šiuo metu skaitomos",
+    "onWishlist": "Norų sąraše",
+    "pagesRead": "Perskaityti puslapiai"
+  },
+  "books": {
+    "totalBooks": "Iš viso knygų",
+    "completionRate": "Užbaigimo rodiklis",
+    "averageRating": "Vidutinis įvertinimas",
+    "readingProgress": "Skaitymo pažanga"
   },
   "common": {
     "loading": "Kraunama..."

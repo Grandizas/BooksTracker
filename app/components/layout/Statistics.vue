@@ -20,30 +20,32 @@ type Statistic = {
   description: string;
 };
 
+const { t } = useI18n();
+
 const statistics: Ref<Statistic[]> = ref([
   {
     id: 1,
     icon: { name: 'trophy', color: 'yellow' },
     count: 0,
-    description: 'Books Completed',
+    description: t('statistics.booksCompleted'),
   },
   {
     id: 2,
     icon: { name: 'book-open', color: 'blue' },
     count: 0,
-    description: 'Currently Reading',
+    description: t('statistics.currentlyReading'),
   },
   {
     id: 3,
     icon: { name: 'heart', color: 'red' },
     count: 0,
-    description: 'On Wishlist',
+    description: t('statistics.onWishlist'),
   },
   {
     id: 4,
     icon: { name: 'books', color: 'green' },
     count: 0,
-    description: 'Pages Read',
+    description: t('statistics.pagesRead'),
   },
 ]);
 </script>
