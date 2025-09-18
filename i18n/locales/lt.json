@@ -82,6 +82,21 @@
     "unexpectedAuthResponse": "Netikėta autentifikacijos atsakymas",
     "unknownError": "Įvyko klaida. Bandykite dar kartą."
   },
+  "profile": {
+    "hi": "Sveiki, {name}",
+    "settings": "Nustatymai",
+    "account": "Paskyra",
+    "preferences": "Nuostatos",
+    "changePassword": "Keisti slaptažodį",
+    "deleteAccount": "Ištrinti paskyrą",
+    "deleteAccountWarning": "Dėmesio: šis veiksmas yra negrįžtamas. Ištrynus paskyrą, bus pašalinti visi jūsų duomenys.",
+    "deleteAccountConfirm": "Įveskite DELETE, kad patvirtintumėte",
+    "accountDeleted": "Jūsų paskyra buvo ištrinta",
+    "updateProfile": "Atnaujinti profilį",
+    "profileUpdated": "Profilis sėkmingai atnaujintas",
+    "currentPassword": "Dabartinis slaptažodis",
+    "myProfile": "Mano profilis"
+  },
   "common": {
     "loading": "Kraunama..."
   }

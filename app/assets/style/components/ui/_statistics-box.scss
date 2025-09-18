@@ -1,0 +1,29 @@
+@use 'assets/style/abstracts/colors' as *;
+@use 'assets/style/abstracts/variables' as *;
+@use 'assets/style/abstracts/functions' as *;
+@use 'assets/style/abstracts/mixins' as *;
+@use 'assets/style/utilities/_icon-colors.scss';
+
+.statistics-box {
+  display: flex;
+  gap: spacing(1);
+  align-items: center;
+  padding: spacing(3);
+  flex-direction: column;
+  border-radius: $radius-md;
+  box-shadow: $box-shadow-box;
+
+  &__icon {
+    @include box($icon-size-medium);
+  }
+
+  &__count {
+    font-size: $font-size-xl;
+    font-weight: bold;
+  }
+
+  &__description {
+    color: $color-gray-dark;
+    font-size: $font-size-sm;
+  }
+}

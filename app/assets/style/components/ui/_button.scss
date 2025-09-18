@@ -4,9 +4,11 @@
 
 .button {
   border: none;
-  font-weight: 500;
+  display: flex;
+  gap: spacing(1);
+  align-items: center;
   padding: spacing(1);
-  font-size: $font-size-sm;
+  font-size: $font-size-xs;
   border-radius: $radius-md;
 
   &:not(.disabled):not(:disabled):not([aria-disabled='true']):hover {
@@ -26,6 +28,22 @@
 
     &:not(.disabled):hover {
       opacity: 0.9;
+    }
+  }
+
+  &.primary,
+  &.secondary {
+    font-weight: 500;
+  }
+
+  &.bordered {
+    color: $color-black;
+    background-color: transparent;
+    box-shadow: $box-shadow-button;
+    transition: background-color 100ms ease-in-out;
+
+    &:not(.disabled):hover {
+      background-color: $color-gray-light;
     }
   }
 }

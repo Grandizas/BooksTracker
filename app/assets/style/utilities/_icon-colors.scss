@@ -1,0 +1,21 @@
+@use 'assets/style/abstracts/colors' as *;
+
+.icon--yellow {
+  color: $color-yellow;
+}
+
+.icon--red {
+  color: $color-red;
+}
+
+.icon--green {
+  color: $color-green;
+}
+
+.icon--blue {
+  color: $color-blue;
+}
+
+.icon--black {
+  color: $color-black;
+}

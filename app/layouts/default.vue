@@ -7,4 +7,6 @@
 
 <script setup lang="ts"></script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@use '@/assets/style/layout/structure/_default.scss';
+</style>

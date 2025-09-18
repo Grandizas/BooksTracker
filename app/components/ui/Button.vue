@@ -11,8 +11,8 @@
 <script setup lang="ts">
 defineProps({
   type: {
-    type: String as PropType<"button" | "submit" | "reset">,
-    default: "button",
+    type: String as PropType<'button' | 'submit' | 'reset'>,
+    default: 'button',
   },
   disabled: {
     type: Boolean,
@@ -23,12 +23,12 @@ defineProps({
     default: () => {},
   },
   variant: {
-    type: String as PropType<"primary" | "secondary">,
-    default: "primary",
+    type: String as PropType<'primary' | 'secondary' | 'bordered'>,
+    default: 'primary',
   },
 });
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/style/components/ui/_button.scss";
+@use '@/assets/style/components/ui/_button.scss';
 </style>

@@ -82,6 +82,21 @@
     "unexpectedAuthResponse": "Unexpected authentication response",
     "unknownError": "Something went wrong. Please try again."
   },
+  "profile": {
+    "hi": "Hi, {name}",
+    "settings": "Settings",
+    "account": "Account",
+    "preferences": "Preferences",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "deleteAccountWarning": "This action is irreversible. All your data will be permanently deleted.",
+    "deleteAccountConfirm": "Type DELETE to confirm",
+    "accountDeleted": "Your account has been deleted",
+    "updateProfile": "Update Profile",
+    "profileUpdated": "Profile updated successfully",
+    "currentPassword": "Current Password",
+    "myProfile": "My Profile"
+  },
   "common": {
     "loading": "Loading..."
   }

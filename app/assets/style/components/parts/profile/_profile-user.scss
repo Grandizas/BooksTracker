@@ -1,0 +1,37 @@
+@use 'assets/style/abstracts/colors' as *;
+@use 'assets/style/abstracts/mixins' as *;
+@use 'assets/style/abstracts/variables' as *;
+@use 'assets/style/abstracts/functions' as *;
+
+.profile-user {
+  display: flex;
+  gap: spacing(3);
+  align-items: center;
+  justify-content: space-between;
+
+  &__info {
+    display: flex;
+    gap: spacing(2);
+    align-items: center;
+
+    &--contacts {
+      p {
+        font-size: $font-size-sm;
+      }
+
+      &__name {
+        font-weight: bold;
+      }
+
+      &__email {
+        color: $color-gray-dark;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: spacing(1);
+    align-items: center;
+  }
+}

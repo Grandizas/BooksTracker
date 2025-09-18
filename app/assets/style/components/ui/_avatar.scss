@@ -1,0 +1,40 @@
+@use 'assets/style/abstracts/colors' as *;
+@use 'assets/style/abstracts/variables' as *;
+@use 'assets/style/abstracts/functions' as *;
+@use 'assets/style/abstracts/mixins' as *;
+
+.avatar {
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-gray-dark;
+
+  :deep(svg) {
+    color: $color-white;
+  }
+
+  &.avatar--small {
+    @include box($icon-size-small + spacing(2));
+
+    :deep(svg) {
+      @include box($icon-size-small);
+    }
+  }
+
+  &.avatar--medium {
+    @include box($icon-size-medium + spacing(3));
+
+    :deep(svg) {
+      @include box($icon-size-medium);
+    }
+  }
+
+  &.avatar--large {
+    @include box($icon-size-large + spacing(4));
+
+    :deep(svg) {
+      @include box($icon-size-large);
+    }
+  }
+}

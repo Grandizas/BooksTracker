@@ -139,9 +139,11 @@ async function handleLogin() {
     }
 
     if (result.success) {
-      const dest = typeof route.query.redirect === 'string' && route.query.redirect.startsWith('/')
-        ? route.query.redirect
-        : '/';
+      const dest =
+        typeof route.query.redirect === 'string' &&
+        route.query.redirect.startsWith('/')
+          ? route.query.redirect
+          : '/';
       await navigateTo(dest, { replace: true });
     }
   } finally {

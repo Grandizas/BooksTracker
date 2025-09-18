@@ -3,7 +3,7 @@
     <NuxtLink
       v-for="link in useNavigationLinks()"
       :key="link.label"
-      :to="link.to"
+      :to="localePath(link.to)"
       :aria-current="link.ariaCurrent"
       class="nav-link"
     >
@@ -16,6 +16,8 @@
 <script setup lang="ts">
 import { useNavigationLinks } from '@/config/navigation';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+const localePath = useLocalePath();
 </script>
 
 <style scoped lang="scss">

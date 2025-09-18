@@ -1,4 +1,4 @@
-export type BookStatus = "reading" | "wishlist" | "completed";
+export type BookStatus = 'reading' | 'wishlist' | 'completed';
 
 export interface Book {
   id: string;
@@ -13,6 +13,13 @@ export interface Book {
   inserted_at: string;
 }
 
-export type NewBook = Omit<Book, "id" | "user_id" | "inserted_at">;
+export type NewBook = Omit<Book, 'id' | 'user_id' | 'inserted_at'>;
 
-export type Languages = "en" | "lt";
+export type Languages = 'en' | 'lt';
+
+export type StatisticsColorScheme =
+  | 'yellow'
+  | 'blue'
+  | 'red'
+  | 'green'
+  | 'black';
