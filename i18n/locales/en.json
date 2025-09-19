@@ -82,7 +82,42 @@
     "unexpectedAuthResponse": "Unexpected authentication response",
     "unknownError": "Something went wrong. Please try again."
   },
+  "profile": {
+    "profile": "Profile",
+    "hi": "Hi, {name}",
+    "settings": "Settings",
+    "account": "Account",
+    "preferences": "Preferences",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "deleteAccountWarning": "This action is irreversible. All your data will be permanently deleted.",
+    "deleteAccountConfirm": "Type DELETE to confirm",
+    "accountDeleted": "Your account has been deleted",
+    "updateProfile": "Update Profile",
+    "profileUpdated": "Profile updated successfully",
+    "currentPassword": "Current Password",
+    "myProfile": "My Profile"
+  },
+  "account": {
+    "accountInfo": "Account Information",
+    "memberSince": "Member since",
+    "dataStorage": "Data Storage",
+    "storedLocally": "Stored locally on your device"
+  },
+  "statistics": {
+    "booksCompleted": "Books Completed",
+    "currentlyReading": "Currently Reading",
+    "onWishlist": "On Wishlist",
+    "pagesRead": "Pages Read"
+  },
+  "books": {
+    "totalBooks": "Total Books",
+    "completionRate": "Completion Rate",
+    "averageRating": "Average Rating",
+    "readingProgress": "Reading Progress"
+  },
   "common": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "comingSoon": "Coming Soon"
   }
 }

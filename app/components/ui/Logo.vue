@@ -3,8 +3,10 @@
 </template>
 
 <style scoped lang="scss">
+@use 'assets/style/abstracts/variables' as *;
+@use 'assets/style/abstracts/mixins' as *;
+
 .logo {
-  width: 2rem;
-  height: 2rem;
+  @include box($icon-size-medium);
 }
 </style>

@@ -2,7 +2,6 @@ import { defineNuxtPlugin } from '#app';
 import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// Import specific icons
 import {
   faEye,
   faHouse,
@@ -10,22 +9,33 @@ import {
   faBookOpen,
   faCircleCheck,
   faPlus,
+  faUser,
+  faGear,
+  faBooks,
+  faTrophy,
+  faStar,
   faEyeSlash,
   faXmark,
+  faPersonToDoor,
 } from '@fortawesome/pro-regular-svg-icons';
 
-// Prevent auto-adding CSS since Nuxt handles it
 config.autoAddCss = false;
 
 library.add(
   faEye,
   faHouse,
   faHeart,
+  faUser,
+  faGear,
+  faBooks,
+  faTrophy,
   faBookOpen,
   faCircleCheck,
   faPlus,
+  faStar,
   faEyeSlash,
   faXmark,
+  faPersonToDoor,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

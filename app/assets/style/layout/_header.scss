@@ -2,7 +2,14 @@
 
 .header {
   display: flex;
+  height: rem(80);
   padding: spacing(2);
   align-items: center;
   justify-content:  space-between;
+
+  &__right {
+    display: flex;
+    gap: spacing(2);
+    align-items: center;
+  }
 }

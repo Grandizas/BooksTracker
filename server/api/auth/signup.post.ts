@@ -1,58 +1,40 @@
-import { defineEventHandler, readBody, createError, getRequestURL } from 'h3';
-import { buildAuthSchemas } from '~/utils/validation/auth';
 import { serverSupabaseClient } from '#supabase/server';
+import { z } from 'zod';
+
+const Body = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  fullName: z.string().min(1).max(200),
+});
 
 export default defineEventHandler(async (event) => {
-  try {
-    const body = await readBody(event);
+  const origin = getRequestURL(event).origin;
+  const supabase = await serverSupabaseClient(event);
+  const body = await readBody(event);
+  const parsed = Body.safeParse(body);
+  if (!parsed.success) {
+    throw createError({ statusCode: 400, statusMessage: 'Invalid form data' });
+  }
 
-    // server-safe 't' (no Vue composable on the server route)
-    const t = (key: string) => key;
-    const { serverSignUpSchema } = buildAuthSchemas(t);
+  const { email, password, fullName } = parsed.data;
 
-    const parsed = serverSignUpSchema.safeParse(body);
-    if (!parsed.success) {
-      const flat = parsed.error.flatten();
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Validation failed',
-        data: flat, // fieldErrors & formErrors
-      });
-    }
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { fullName },
+      emailRedirectTo: `${origin}/auth/login`,
+    },
+  });
 
-    const supabase = await serverSupabaseClient(event);
-    const { fullName, email, password } = parsed.data;
-
-    const origin = getRequestURL(event).origin;
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { fullName },
-        emailRedirectTo: `${origin}/auth/login`,
-      },
-    });
-
-    if (error) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Sign up failed. Please try again.',
-        // In dev we can surface details to help debugging
-        data: import.meta.dev ? { details: error.message } : undefined,
-      });
-    }
-
-    return { user: data.user };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    // Ensure we always return a structured error (avoids raw 500s without context)
-    if (err?.statusCode) throw err;
+  if (error) {
     throw createError({
-      statusCode: 500,
-      statusMessage: 'Internal signup error',
-      data: import.meta.dev
-        ? { details: String(err?.message ?? err) }
-        : undefined,
+      statusCode: 400,
+      statusMessage: 'Sign up failed',
+      data: import.meta.dev ? { details: error.message } : undefined,
     });
   }
+
+  // No manual profile upsert needed; trigger covers it.
+  return { ok: true, userId: data.user?.id };
 });

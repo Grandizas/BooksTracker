@@ -56,6 +56,7 @@ export default defineNuxtConfig({
     '@/assets/style/base/_base.scss',
     '@/assets/style/base/_typography.scss',
     '@/assets/style/base/_normalize.scss',
+    '@/assets/style/utilities/_index.scss',
   ],
   i18n: {
     strategy: 'prefix_except_default',

@@ -3,10 +3,13 @@
     <div class="header__left">
       <ui-logo-text />
     </div>
+
     <layout-navigation class="header__center" />
+
     <div class="header__right">
       <ui-language-switcher />
-      <ui-logout-button />
+
+      <ui-profile-button />
     </div>
   </header>
 </template>
