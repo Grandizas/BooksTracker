@@ -22,6 +22,6 @@ const { t } = useI18n();
 .profile-page__info {
   display: grid;
   gap: spacing(3);
-  grid-template-columns: repeat(auto-fit, minmax(rem(30), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(rem(300), 1fr));
 }
 </style>

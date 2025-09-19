@@ -1,15 +1,18 @@
-import { defineStore } from 'pinia';
+import { reactive } from 'vue';
+export const useLoaderStore = defineStore('loader', () => {
+  const loading = reactive<Record<string, boolean>>({});
 
-export const useLoaderStore = defineStore('loader', {
-  state: () => ({
-    loading: {} as Record<string, boolean>,
-  }),
-  getters: {
-    isLoading: (state) => (key: string) => !!state.loading[key],
-  },
-  actions: {
-    setLoading(key: string, value: boolean) {
-      this.loading[key] = value;
-    },
-  },
+  function isLoading(key: string): boolean {
+    return loading[key] || false;
+  }
+
+  function setLoading(key: string, value: boolean) {
+    loading[key] = value;
+  }
+
+  return {
+    loading,
+    isLoading,
+    setLoading,
+  };
 });

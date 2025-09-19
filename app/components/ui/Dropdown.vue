@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
-
 interface Option {
   label: string;
   value: string | number;
@@ -52,19 +50,7 @@ function selectOption(option: Option) {
   isOpen.value = false;
 }
 
-function handleClickOutside(event: MouseEvent) {
-  if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
-    isOpen.value = false;
-  }
-}
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
+useClickOutside(dropdownRef, () => (isOpen.value = false));
 </script>
 
 <style scoped lang="scss">

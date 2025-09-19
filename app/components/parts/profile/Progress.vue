@@ -64,7 +64,7 @@ const averageRating = computed(() => {
   );
   if (rated.length === 0) return 0;
 
-  const totalRating = rated.reduce((sum, book) => sum + (book.rating || 1), 0);
+  const totalRating = rated.reduce((sum, book) => sum + book.rating!, 0);
   return (totalRating / rated.length).toFixed(1);
 });
 </script>
