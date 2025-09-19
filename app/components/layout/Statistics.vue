@@ -5,6 +5,7 @@
       :key="item.id"
       :icon="item.icon"
       :count="item.count"
+      :loading="loading"
       :description="item.description"
     />
   </section>
@@ -12,6 +13,10 @@
 
 <script setup lang="ts">
 import type { StatisticsColorScheme } from '~~/types/types';
+import { useBooksStore } from '~~/stores/books';
+
+const books = useBooksStore();
+const { statistics: piniaStatistics } = storeToRefs(books);
 
 type Statistic = {
   id: number;
@@ -22,32 +27,46 @@ type Statistic = {
 
 const { t } = useI18n();
 
+const loading = ref(true);
 const statistics: Ref<Statistic[]> = ref([
   {
     id: 1,
     icon: { name: 'trophy', color: 'yellow' },
-    count: 0,
+    count: piniaStatistics.value.booksCompleted,
     description: t('statistics.booksCompleted'),
   },
   {
     id: 2,
     icon: { name: 'book-open', color: 'blue' },
-    count: 0,
+    count: piniaStatistics.value.currentlyReading,
     description: t('statistics.currentlyReading'),
   },
   {
     id: 3,
     icon: { name: 'heart', color: 'red' },
-    count: 0,
+    count: piniaStatistics.value.wishlist,
     description: t('statistics.onWishlist'),
   },
   {
     id: 4,
     icon: { name: 'books', color: 'green' },
-    count: 0,
+    count: piniaStatistics.value.pagesRead,
     description: t('statistics.pagesRead'),
   },
 ]);
+
+onMounted(async () => {
+  await books.getStatistics();
+  updateCounts();
+  loading.value = false;
+});
+
+function updateCounts() {
+  statistics.value[0]!.count = piniaStatistics.value.booksCompleted;
+  statistics.value[1]!.count = piniaStatistics.value.currentlyReading;
+  statistics.value[2]!.count = piniaStatistics.value.wishlist;
+  statistics.value[3]!.count = piniaStatistics.value.pagesRead;
+}
 </script>
 
 <style scoped lang="scss">

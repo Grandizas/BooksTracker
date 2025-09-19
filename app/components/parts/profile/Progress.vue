@@ -30,35 +30,14 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const { t } = useI18n();
+
+const readingProgress = ref({
+  totalBooks: 0,
+  completionRate: '0%',
+  averageRating: 0,
+});
 </script>
 
 <style scoped lang="scss">
-@use 'assets/style/abstracts/colors' as *;
-@use 'assets/style/abstracts/variables' as *;
-@use 'assets/style/abstracts/functions' as *;
-
-.reading-progress {
-  display: flex;
-  gap: spacing(2);
-  padding: spacing(2);
-  flex-direction: column;
-  border-radius: $radius-md;
-  box-shadow: $box-shadow-box;
-
-  &__row,
-  &__row--rating {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  p,
-  .reading-progress__row--rating {
-    font-size: $font-size-sm;
-  }
-
-  svg {
-    color: $color-yellow;
-  }
-}
+@use '@/assets/style/components/parts/profile/_progress.scss';
 </style>

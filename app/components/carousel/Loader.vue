@@ -19,6 +19,7 @@ withDefaults(
 @use '@/assets/style/abstracts/mixins' as *;
 
 .loader {
+  display: block;
   position: relative;
   border-radius: 50%;
   animation: rotate 1s linear infinite;
