@@ -5,13 +5,20 @@
     <!-- * --- Total Books --- * -->
     <div class="reading-progress__row">
       <p>{{ t('books.totalBooks') }}</p>
-      <p>0</p>
+      <p>
+        <carousel-loader v-if="loader.isLoading('books')" />
+        <template v-else> {{ totalBooks }} </template>
+      </p>
     </div>
 
     <!-- * --- Completion Rate --- * -->
     <div class="reading-progress__row">
       <p>{{ t('books.completionRate') }}</p>
-      <p>0</p>
+
+      <p>
+        <carousel-loader v-if="loader.isLoading('books')" />
+        <template v-else> {{ completionRate }} </template>
+      </p>
     </div>
 
     <!-- * --- Average Rating --- * -->
@@ -20,7 +27,9 @@
 
       <div class="reading-progress__row--rating">
         <font-awesome-icon class="icon-small" :icon="['far', 'star']" />
-        &nbsp; 0
+        &nbsp;
+        <carousel-loader v-if="loader.isLoading('books')" />
+        <template v-else> {{ averageRating }} </template>
       </div>
     </div>
   </div>
@@ -28,13 +37,35 @@
 
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useBooksStore } from '~~/stores/books';
+import { useLoaderStore } from '~~/stores/loader';
+
+const loader = useLoaderStore();
+const store = useBooksStore();
+const { books, statistics } = storeToRefs(store);
 
 const { t } = useI18n();
 
-const readingProgress = ref({
-  totalBooks: 0,
-  completionRate: '0%',
-  averageRating: 0,
+const totalBooks = computed(() => {
+  return Object.keys(books.value).length;
+});
+
+const completionRate = computed(() => {
+  const completedBooks = statistics.value.booksCompleted;
+  if (totalBooks.value === 0) return '0%';
+
+  const rate = (completedBooks / totalBooks.value) * 100;
+  return `${rate.toFixed(0)}%`;
+});
+
+const averageRating = computed(() => {
+  const rated = Object.values(books.value).filter(
+    (book) => book.rating && book.rating > 0,
+  );
+  if (rated.length === 0) return 0;
+
+  const totalRating = rated.reduce((sum, book) => sum + (book.rating || 1), 0);
+  return (totalRating / rated.length).toFixed(1);
 });
 </script>
 

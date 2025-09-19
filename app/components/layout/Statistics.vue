@@ -5,7 +5,7 @@
       :key="item.id"
       :icon="item.icon"
       :count="item.count"
-      :loading="loading"
+      :loading="loader.isLoading('books')"
       :description="item.description"
     />
   </section>
@@ -14,7 +14,9 @@
 <script setup lang="ts">
 import type { StatisticsColorScheme } from '~~/types/types';
 import { useBooksStore } from '~~/stores/books';
+import { useLoaderStore } from '~~/stores/loader';
 
+const loader = useLoaderStore();
 const books = useBooksStore();
 const { statistics: piniaStatistics } = storeToRefs(books);
 
@@ -27,7 +29,6 @@ type Statistic = {
 
 const { t } = useI18n();
 
-const loading = ref(true);
 const statistics: Ref<Statistic[]> = ref([
   {
     id: 1,
@@ -55,10 +56,12 @@ const statistics: Ref<Statistic[]> = ref([
   },
 ]);
 
+loader.setLoading('books', true);
+
 onMounted(async () => {
   await books.getStatistics();
   updateCounts();
-  loading.value = false;
+  loader.setLoading('books', false);
 });
 
 function updateCounts() {

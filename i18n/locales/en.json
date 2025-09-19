@@ -117,6 +117,7 @@
     "readingProgress": "Reading Progress"
   },
   "common": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "comingSoon": "Coming Soon"
   }
 }

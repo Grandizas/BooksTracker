@@ -5,7 +5,7 @@
     <!-- * --- Total Books --- * -->
     <div class="account-info__row">
       <p class="account-info__row--title">{{ t('account.memberSince') }}</p>
-      <p class="account-info__row--desc">----|--|--</p>
+      <p class="account-info__row--desc">{{ t('common.comingSoon') }}</p>
     </div>
 
     <!-- * --- Completion Rate --- * -->

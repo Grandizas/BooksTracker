@@ -25,8 +25,6 @@ export const useBooksStore = defineStore('books', {
           return $fetch('/api/books').then((data: Book[]) => {
             this.books = {};
 
-            console.log('data', data);
-
             data.forEach((book) => {
               this.books[book.id] = book;
             });
