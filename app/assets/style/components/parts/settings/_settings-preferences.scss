@@ -1,0 +1,24 @@
+@use 'assets/style/abstracts/variables' as *;
+@use 'assets/style/abstracts/functions' as *;
+
+.panel__preferences--fields {
+  display: flex;
+  gap: spacing(2);
+  flex-direction: column;
+
+  &__field {
+    display: flex;
+    gap: spacing(0.75);
+    flex-direction: column;
+
+    p {
+      font-weight: 500;
+      font-size: $font-size-xs;
+    }
+  }
+
+  &__dropdown,
+  &__dropdown :deep(button) {
+    width: 100%;
+  }
+}

@@ -1,8 +1,21 @@
 <template>
   <div ref="dropdownRef" class="dropdown">
-    <button class="dropdown__toggle" type="button" @click="toggleDropdown">
+    <ui-button
+      v-if="variant === 'button'"
+      variant="bordered"
+      :on-click="toggleDropdown"
+    >
       {{ selectedLabel }}
-      <span class="dropdown__icon">▼</span>
+    </ui-button>
+
+    <button
+      v-else
+      class="dropdown__select"
+      type="button"
+      @click="toggleDropdown()"
+    >
+      {{ selectedLabel }}
+      <font-awesome-icon :icon="['far', 'chevron-down']" class="icon-small" />
     </button>
 
     <ul v-if="isOpen" class="dropdown__menu">
@@ -12,22 +25,30 @@
         class="dropdown__item"
         @click="selectOption(option)"
       >
-        {{ option.label }}
+        {{ option.text }}
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 interface Option {
-  label: string;
+  text: string;
   value: string | number;
 }
 
-const props = defineProps<{
-  options: Option[];
-  modelValue: string | number | null;
-}>();
+const props = withDefaults(
+  defineProps<{
+    options: Option[];
+    variant?: 'button' | 'select';
+    modelValue: string | number | null;
+  }>(),
+  {
+    variant: 'select',
+  },
+);
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string | number): void;
@@ -38,7 +59,7 @@ const dropdownRef = ref<HTMLElement | null>(null);
 
 const selectedLabel = computed(() => {
   const found = props.options.find((o) => o.value === props.modelValue);
-  return found ? found.label : 'Select...';
+  return found ? found.text : 'Select...';
 });
 
 function toggleDropdown() {
