@@ -6,7 +6,7 @@
     </header>
 
     <div class="settings__body">
-      <layout-vertical-navigation />
+      <layout-vertical-navigation aria-label="Settings navigation" />
       <slot />
     </div>
   </main>
@@ -17,11 +17,5 @@ const { t } = useI18n();
 </script>
 
 <style scoped lang="scss">
-@use 'assets/style/abstracts/functions' as *;
-
-.settings__body {
-  display: flex;
-  gap: spacing(4);
-  margin-top: spacing(2);
-}
+@use '@/assets/style/layout/_settings-wrapper.scss';
 </style>

@@ -1,3 +1,4 @@
+@use 'assets/style/abstracts/variables' as *;
 @use '../abstracts/functions' as *;
 
 .header {
@@ -5,7 +6,8 @@
   height: rem(80);
   padding: spacing(2);
   align-items: center;
-  justify-content:  space-between;
+  box-shadow: $box-shadow-box;
+  justify-content: space-between;
 
   &__right {
     display: flex;

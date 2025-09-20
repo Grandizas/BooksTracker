@@ -6,16 +6,7 @@
       to="/profile"
       :aria-current="ariaCurrent"
     >
-      <carousel-loader v-if="pending" />
-
-      <img
-        v-else-if="profile && profile.avatar_url"
-        :src="avatar"
-        alt="User avatar"
-        class="profile-dropdown__avatar"
-      />
-
-      <ui-avatar v-else />
+      <ui-profile-image />
 
       {{
         t('profile.hi', {
@@ -31,10 +22,9 @@ import { useProfile } from '~/composables/useProfile';
 
 const { t } = useI18n();
 const localePath = useLocalePath();
-const { profile, pending } = useProfile();
+const { profile } = useProfile();
 
 const dropdownRef = ref<HTMLElement | null>(null);
-const avatar = ref('/images/avatar.png');
 
 const ariaCurrent = computed(() => {
   const path = useRoute().path;

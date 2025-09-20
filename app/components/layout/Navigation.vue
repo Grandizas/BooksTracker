@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation" aria-label="Primary">
+  <nav class="navigation" aria-label="Main navigation">
     <NuxtLink
       v-for="link in useNavigationLinks()"
       :key="link.label"

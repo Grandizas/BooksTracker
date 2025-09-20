@@ -1,0 +1,26 @@
+@use 'assets/style/abstracts/functions' as *;
+
+.panel__profile {
+  &--form__avatar {
+    margin-bottom: spacing(2);
+  }
+
+  &--form__fields {
+    width: 100%;
+    display: flex;
+    gap: spacing(2);
+
+    &--input {
+      flex: 1;
+    }
+  }
+
+  &--form__buttons {
+    display: flex;
+    margin: spacing(2) 0;
+  }
+
+  .button-primary {
+    margin-left: auto;
+  }
+}

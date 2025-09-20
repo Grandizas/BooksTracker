@@ -99,6 +99,7 @@
     "myProfile": "Mano profilis"
   },
   "settings": {
+    "saveChanges": "Išsaugoti pakeitimus",
     "manageYourSettings": "Tvarkykite savo paskyros nustatymus ir nuostatas",
     "preferences": "Nuostatos",
     "notifications": "Pranešimai",

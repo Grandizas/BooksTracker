@@ -99,6 +99,7 @@
     "myProfile": "My Profile"
   },
   "settings": {
+    "saveChanges": "Save Changes",
     "manageYourSettings": "Manage your account settings and preferences",
     "preferences": "Preferences",
     "notifications": "Notifications",

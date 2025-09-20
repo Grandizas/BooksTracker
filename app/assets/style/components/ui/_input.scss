@@ -10,7 +10,7 @@ $input-height: rem(35);
   position: relative;
   flex-direction: column;
 
-  &:not(:first-child) {
+  &:not(:first-child, .no-margin) {
     margin-top: spacing(2);
   }
 

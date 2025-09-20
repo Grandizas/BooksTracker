@@ -21,6 +21,7 @@ import {
   faEyeSlash,
   faXmark,
   faPersonToDoor,
+  faArrowUpFromBracket,
 } from '@fortawesome/pro-regular-svg-icons';
 
 config.autoAddCss = false;
@@ -44,6 +45,7 @@ library.add(
   faEyeSlash,
   faXmark,
   faPersonToDoor,
+  faArrowUpFromBracket,
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
