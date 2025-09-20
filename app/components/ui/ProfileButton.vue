@@ -3,7 +3,7 @@
     <!-- Avatar toggle -->
     <ui-link
       class="profile-dropdown__toggle"
-      to="profile"
+      to="/profile"
       :aria-current="ariaCurrent"
     >
       <carousel-loader v-if="pending" />
@@ -30,6 +30,7 @@
 import { useProfile } from '~/composables/useProfile';
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 const { profile, pending } = useProfile();
 
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -37,7 +38,7 @@ const avatar = ref('/images/avatar.png');
 
 const ariaCurrent = computed(() => {
   const path = useRoute().path;
-  return path.includes('/profile') ? 'page' : undefined;
+  return path.startsWith(localePath('/profile')) ? 'page' : undefined;
 });
 </script>
 

@@ -25,7 +25,7 @@
     </div>
 
     <div class="profile-user__buttons">
-      <ui-link to="settings" class="profile-user__settings-button">
+      <ui-link to="/settings/profile" class="profile-user__settings-button">
         <font-awesome-icon class="icon-small" :icon="['far', 'gear']" />
         {{ t('profile.settings') }}
       </ui-link>

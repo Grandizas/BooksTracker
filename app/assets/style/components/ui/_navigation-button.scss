@@ -13,16 +13,28 @@
   text-decoration: none;
   font-size: $font-size-xs;
   border-radius: $radius-md;
-  box-shadow: $box-shadow-button;
   transition: background-color 100ms ease-in-out;
+
+  &:not(.borderless) {
+    box-shadow: $box-shadow-button;
+  }
+
+  &.text-left {
+    justify-content: flex-start;
+  }
 
   &:hover {
     background-color: $color-gray-light;
   }
 
-  &.active {
+  &.active,
+  &[aria-current="page"] {
     color: $color-white;
     background-color: $color-black;
+  }
+
+  :deep(span) {
+    @extend %ellipsis;
   }
 
   svg {

@@ -1,5 +1,5 @@
 <template>
-  <main class="settings">Settings</main>
+  <layout-settings-wrapper> a </layout-settings-wrapper>
 </template>
 
 <script setup lang="ts"></script>

@@ -1,6 +1,12 @@
 @use 'assets/style/abstracts/variables' as *;
 @use 'assets/style/abstracts/mixins' as *;
 
+.icon-small,
+.icon-medium,
+.icon-large {
+  flex: 0 0 auto;
+}
+
 .icon-small {
   @include box($icon-size-small);
 }
